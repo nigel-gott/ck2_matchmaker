@@ -48,9 +48,13 @@ public class HoldingLevelFilter implements Filterer {
   @Override
   public boolean passes(Person person) {
     if (!onNow) return true;
-    if (person.getHoldings() == null || person.getHoldings().isEmpty()) return false;
-    int level = person.getHoldings().iterator().next().holdingLevel.weight;
-    return isMinFilter ? level >= threshold : level <= threshold;
+    int level;
+    if (person.getHoldings() == null || person.getHoldings().isEmpty()) {
+      level = 0;
+    } else {
+      level = person.getHoldings().iterator().next().holdingLevel.weight;
+    }
+    return isMinFilter == (level >= threshold);
   }
 
   @Override
