@@ -7,6 +7,9 @@ See http://www.couscouscrabcakes.com/matchmaker/matchmaker.html for the original
 ## Attribution
 Many thanks to the original author badger_ken. Ken can be contacted at #TODO INSERT EMAIL# and their website is #WEBSITE#.
 
+## Contribution
+Please free feel to open feature requests or report bugs as issues. Pull requests are also very welcome! 
+
 ## Installation
 TODO
 
