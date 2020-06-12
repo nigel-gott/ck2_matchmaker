@@ -36,6 +36,7 @@ import fam.badger_ken.matchmaker.ReligionGroup.PruningMode;
 public class SwingGui implements ResultMaker {
 
     private static final String INSTALL_DIR_PREF_KEY = "install_dir";
+    public static final String CHANGE = "Change";
     private JFrame frmCkMatchmaker;
     final JPanel filterPanel = new JPanel();
     private String installationDirName = null;
@@ -202,6 +203,8 @@ public class SwingGui implements ResultMaker {
                     return;
                 }
                 onInstallDirSet(installationDirChooser.getSelectedFile().getPath());
+                installDirButton.setText(CHANGE);
+                installDirButton.setBackground(Color.GREEN);
             }
         });
         installDirPanel.add(installDirButton);
@@ -351,6 +354,8 @@ public class SwingGui implements ResultMaker {
                     return;
                 }
                 onSaveGameFileSet(saveGameFileChooser.getSelectedFile());
+                saveGameFileButton.setText(CHANGE);
+                saveGameFileButton.setBackground(Color.GREEN);
             }
         });
         final JPanel loadMoreActionPanel = new JPanel();
@@ -462,17 +467,19 @@ public class SwingGui implements ResultMaker {
         viewPanel.add(scrollPane);
         viewPanel.setVisible(false);
         frmCkMatchmaker.pack();
-        //installationDirName = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\crusader kings ii";
-        //saveGameFile = new File("C:\\Users\\Us\\Documents\\Paradox Interactive\\Crusader Kings II\\save games\\Aragon1401_05_02warwson.ck2");
         String instDir = prefs.get(INSTALL_DIR_PREF_KEY, null);
         if (instDir != null) {
             onInstallDirSet(instDir);
+            installDirButton.setText(CHANGE);
+            installDirButton.setBackground(Color.GREEN);
         }
         String fName = prefs.get(SAVE_GAME_FILE_PREF_KEY, null);
         if (fName != null) {
             File saveFil = new File(fName);
             if (saveFil.canRead()) {
                 onSaveGameFileSet(saveFil);
+                saveGameFileButton.setText(CHANGE);
+                saveGameFileButton.setBackground(Color.GREEN);
             }
         }
     }
@@ -619,7 +626,6 @@ public class SwingGui implements ResultMaker {
      * @param newDir newDirectory.
      */
     private void onInstallDirSet(String newDir) {
-        //installDirLabel.setText("Installation directory: " + installationDirChooser.getSelectedFile());
         if (newDir.equals(installationDirName)) {
             return;
         }
