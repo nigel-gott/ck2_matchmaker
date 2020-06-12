@@ -1,6 +1,6 @@
 # Crusader Kings 2 Matchmaker
 
-This is an updated version of the original author badger_ken's original matchmaker. This version has been fixed to work with the latest version of CK2 (3.3.3) with some minor new features. 
+This is an updated version of the original author badger_ken's original [ck2 matchmaker application](http://www.couscouscrabcakes.com/matchmaker/matchmaker.html). This version has been fixed to work with the latest version of CK2 (3.3.3) with some minor new features. 
 
 See http://www.couscouscrabcakes.com/matchmaker/matchmaker.html for the original website with usage examples etc. To install the updated version please follow the instructions below. 
 
