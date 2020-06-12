@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class Matchmaker implements ParserPruner {
 
-    public static final String VERSION_NUMBER = "1.9";
+    public static final String VERSION_NUMBER = "2.0";
     public SaveState saveState;
     public GameConfig gameConfig;
     public List<Person> winners;
