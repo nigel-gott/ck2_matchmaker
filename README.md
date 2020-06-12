@@ -15,7 +15,7 @@ This is an alpha release which has not been tested with mods, or many different 
 Please raise any issues you encounter on this repo in the issues tab above or in the [thread on the paradox forum](https://forum.paradoxplaza.com/forum/threads/matchmaker-a-tool-to-help-you-find-that-perfect-noble.601230/) 
 
 #### Steps
-1. Download the latest release from the releases page : [k2_matchmaker_2.0.0-alpha.zip](https://github.com/nigel-gott/ck2_matchmaker/releases/download/v2.0.0-alpha/ck2_matchmaker_2.0.0-alpha.zip)
+1. Download the latest release from the releases page : [ck2_matchmaker_2.0.0-alpha.zip](https://github.com/nigel-gott/ck2_matchmaker/releases/download/v2.0.0-alpha/ck2_matchmaker_2.0.0-alpha.zip)
     1. In chrome you may have to confirm you wish to keep the zip
     2. Click the up arrow next to the discard button and select Keep
 2. Extract the zip file. 
