@@ -14,11 +14,9 @@ import java.awt.*;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class ArtifactsHandler implements TableCellRenderer, Comparator<Person> {
-  private Matchmaker matchmaker;
+public class ArtifactsHandler implements CellHandler {
 
-  public ArtifactsHandler(Matchmaker matchmaker) {
-    this.matchmaker = matchmaker;
+  public ArtifactsHandler() {
   }
 
   @Override
@@ -27,7 +25,7 @@ public class ArtifactsHandler implements TableCellRenderer, Comparator<Person> {
     boolean has1 = arg1.getArtifacts() != null && !arg1.getArtifacts().isEmpty();
     if (!has0 && !has1) return 0;
     if (has0 && !has1) return -1;
-    if (!has0 && has1) return 1;
+    if (!has0) return 1;
     // they both have holdings - whoever has the highest-ranked holding wins.
     // if a tie, whoever has the most holdings wins.
     return arg1.getArtifacts().size() - arg0.getArtifacts().size();

@@ -60,6 +60,8 @@ public class Person {
   private Title title = Title.TITLE_NONE;
 
    public Set<Artifact> artifacts = new HashSet<>();
+  private boolean fatherAlive = false;
+  private boolean motherAlive = false;
 
 
   public Person(Integer key) {
@@ -198,7 +200,7 @@ public class Person {
   public String getDisplayDynasty(GameConfig gameConfig, SaveState saveState) {
     if (displayDynasty == null) {
       if (dynastyKey == null) {
-        displayDynasty = "_null"; //"??";
+        displayDynasty = "??";
       } else {
         Dynasty dynasty = saveState.dynasties.get(dynastyKey);
         displayDynasty = (dynasty == null) ? "" : dynasty.name;
@@ -317,4 +319,11 @@ public class Person {
       }
     }
     return displayArtifacts;  }
+
+  public void fatherIsAlive() {
+    this.fatherAlive = true;
+  }
+  public void motherIsAlive() {
+    this.motherAlive = true;
+  }
 }

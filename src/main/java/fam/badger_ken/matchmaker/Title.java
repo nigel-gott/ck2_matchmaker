@@ -49,11 +49,11 @@ public class Title implements Comparable<Title> {
   }
   
   private static TitleRank getTitleRankFromHolding(HoldingLevel level) {
-    if (level == null) {
+    if (level == null || level == HoldingLevel.NONE) {
       return TitleRank.NONE;
     }
     if (holdingTitleMap == null) {
-      holdingTitleMap = new HashMap<HoldingLevel, TitleRank>();
+      holdingTitleMap = new HashMap<>();
       holdingTitleMap.put(HoldingLevel.BARONY, TitleRank.BARON);
       holdingTitleMap.put(HoldingLevel.COUNTY, TitleRank.COUNT);
       holdingTitleMap.put(HoldingLevel.DUCHY, TitleRank.DUKE);

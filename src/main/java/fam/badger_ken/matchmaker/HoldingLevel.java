@@ -11,7 +11,8 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 public class HoldingLevel implements AnyDropdownable, Comparable<HoldingLevel> {
   public String displayLabel; // 'Barony', 'County', ...
   public int weight;
-  
+
+  public static final HoldingLevel NONE = new HoldingLevel('n', "None", 0);
   public static final HoldingLevel BARONY = new HoldingLevel('b', "Barony", 1);
   public static final HoldingLevel COUNTY = new HoldingLevel('c', "County", 2);
   public static final HoldingLevel DUCHY = new HoldingLevel('d', "Duchy", 3);

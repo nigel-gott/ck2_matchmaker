@@ -13,17 +13,15 @@ import javax.swing.table.TableCellRenderer;
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
-public class GenderHandler implements TableCellRenderer, Comparator<Person> {
-  private JLabel maleLabel;
-  private JLabel femaleLabel;
+public class GenderHandler implements CellHandler {
+    private final JLabel maleLabel;
+    private final JLabel femaleLabel;
 
-  Matchmaker matchmaker;
-  public GenderHandler(Matchmaker matchmaker) {
-    this.matchmaker = matchmaker;
-    maleLabel = new JLabel("m");
-    maleLabel.setHorizontalAlignment(JLabel.CENTER);
-    femaleLabel = new JLabel("f");
-    femaleLabel.setHorizontalAlignment(JLabel.CENTER);
+    public GenderHandler() {
+        maleLabel = new JLabel("m");
+        maleLabel.setHorizontalAlignment(JLabel.CENTER);
+        femaleLabel = new JLabel("f");
+        femaleLabel.setHorizontalAlignment(JLabel.CENTER);
     /* cute, but less informative.
 		try {
 			ImageIcon maleIcon = new ImageIcon(new URL("http://icons.iconarchive.com/icons/icons-land/vista-love/16/Sex-Male-icon.png"));
@@ -35,20 +33,20 @@ public class GenderHandler implements TableCellRenderer, Comparator<Person> {
 			femaleLabel = new JLabel("F");
 		}
      */
-  }
+    }
 
-  @Override
-  public int compare(Person arg0, Person arg1) {
-    if (arg0.isMale == arg1.isMale) return 0;
-    return arg0.isMale ? -1 : 1;
-  }
+    @Override
+    public int compare(Person arg0, Person arg1) {
+        if (arg0.isMale == arg1.isMale) return 0;
+        return arg0.isMale ? -1 : 1;
+    }
 
-  @Override
-  public Component getTableCellRendererComponent(JTable table, Object value,
-      boolean isSelected, boolean hasFocus, int row, int column) {
-    Person person = (Person) value;
-    if (person == null) return null;
-    return person.isMale ? maleLabel : femaleLabel;
-  }
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+                                                   boolean isSelected, boolean hasFocus, int row, int column) {
+        Person person = (Person) value;
+        if (person == null) return null;
+        return person.isMale ? maleLabel : femaleLabel;
+    }
 
 }

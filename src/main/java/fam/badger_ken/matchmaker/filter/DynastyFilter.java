@@ -49,7 +49,7 @@ public class DynastyFilter implements Filterer {
   @Override
   public boolean passes(Person person) {
     if (!onNow) return true;
-    return isPresenceChecker == (person.dynastyKey.equals(value)); 
+    return isPresenceChecker == value.equals(person.dynastyKey);
   }
 
   @Override

@@ -9,6 +9,8 @@ import javax.swing.table.TableModel;
 
 import fam.badger_ken.matchmaker.cell.*;
 
+import java.util.List;
+
 /**
  * The table that shows the winners.
  */
@@ -16,9 +18,11 @@ public class ViewTable extends JTable {
   private static final long serialVersionUID = -5668144084110568712L;
   private static final int DEFAULT_HEIGHT_PER_ROW = 20;
   private static final int TRAITS_PER_ROW = 4;
+  private final List<Column> columns;
 
   public ViewTable(ViewTableModel viewTableModel) {
     super(viewTableModel);
+    this.columns = viewTableModel.getColumns();
   }
 
   public void setRowHeights() {
@@ -49,57 +53,42 @@ public class ViewTable extends JTable {
    * someday there should be a class per column that wraps all this.
    */
 
-  public void setCellRenderers(Matchmaker matchmaker) {
-    int column = 0;
+  public void setCellRenderers() {
     TableColumnModel columnModel = this.getColumnModel();
 
-    columnModel.getColumn(column++).setCellRenderer(new AgeHandler());
-    columnModel.getColumn(column++).setCellRenderer(new GenderHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new MarriageHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new KidsHandler());
-    columnModel.getColumn(column++).setCellRenderer(new NameHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new DynastyHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new HoldingsHandler(matchmaker));
-    //columnModel.getColumn(column++).setCellRenderer(new RulerHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new ClaimsHandler());
-    for (int j = 0; j < 5; j++) {
-      columnModel.getColumn(column++).setCellRenderer(new AttributeHandler(matchmaker, j));
+    for (int i = 0; i < columns.size(); i++) {
+      final Column column = columns.get(i);
+      columnModel.getColumn(i).setCellRenderer(column.getCellRenderer());
     }
-    columnModel.getColumn(column++).setCellRenderer(new TraitsHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new ReligionHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new CultureHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new PietyHandler());
-    columnModel.getColumn(column++).setCellRenderer(new WealthHandler());
-    columnModel.getColumn(column++).setCellRenderer(new HomeHandler(matchmaker));
-    columnModel.getColumn(column++).setCellRenderer(new ArtifactsHandler(matchmaker));
+//
+//    columnModel.getColumn(column++).setCellRenderer(new AgeHandler());
+//    columnModel.getColumn(column++).setCellRenderer(new GenderHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new MarriageHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new KidsHandler());
+//    columnModel.getColumn(column++).setCellRenderer(new NameHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new DynastyHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new HoldingsHandler(matchmaker));
+//    //columnModel.getColumn(column++).setCellRenderer(new RulerHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new ClaimsHandler());
+//    for (int j = 0; j < 5; j++) {
+//      columnModel.getColumn(column++).setCellRenderer(new AttributeHandler(matchmaker, j));
+//    }
+//    columnModel.getColumn(column++).setCellRenderer(new TraitsHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new ReligionHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new CultureHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new PietyHandler());
+//    columnModel.getColumn(column++).setCellRenderer(new WealthHandler());
+//    columnModel.getColumn(column++).setCellRenderer(new HomeHandler(matchmaker));
+//    columnModel.getColumn(column++).setCellRenderer(new ArtifactsHandler(matchmaker));
 
   }	
 
   public void setColumnWidths() {
-    final int shortWidth = 55;
-    final int attrWidth = 65;
-    int column = 0;
-    TableColumnModel columns = getColumnModel();
-    columns.getColumn(column++).setMaxWidth(shortWidth);  // age
-    columns.getColumn(column++).setMaxWidth(shortWidth);  // gender
-    columns.getColumn(column++).setMaxWidth(shortWidth);  // married
-    columns.getColumn(column++).setMaxWidth(shortWidth);  // # kids
-    column++; // name
-    column++;  // dynasty
-    column++;  // holdings
-    //columns.getColumn(column++).setMaxWidth(shortWidth);  // ruler?
-    columns.getColumn(column++).setMaxWidth(shortWidth);  // #claims
-    columns.getColumn(column++).setMaxWidth(attrWidth);  // attr
-    columns.getColumn(column++).setMaxWidth(attrWidth);  // attr
-    columns.getColumn(column++).setMaxWidth(attrWidth);  // attr
-    columns.getColumn(column++).setMaxWidth(attrWidth);  // attr
-    columns.getColumn(column++).setMaxWidth(attrWidth);  // attr
-    column++; // traits
-    column++; // religion
-    column++;  // culture
-    columns.getColumn(column++).setMaxWidth(3* shortWidth);  // piety
-    columns.getColumn(column++).setMaxWidth(3* shortWidth);  // wealth
-    column++;  // home
-    columns.getColumn(column++).setMaxWidth(3* shortWidth);  // artifacts
+    for (int i = 0; i < columns.size(); i++) {
+      final Column column = columns.get(i);
+      int finalI = i;
+      column.getMaxColumnWidth().ifPresent((x) -> columnModel.getColumn(finalI).setMaxWidth(x));
+    }
+//    //columns.getColumn(column++).setMaxWidth(shortWidth);  // ruler?
   }
 }

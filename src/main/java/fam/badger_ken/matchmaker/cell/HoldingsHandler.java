@@ -15,7 +15,7 @@ import fam.badger_ken.matchmaker.Holding;
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
-public class HoldingsHandler implements TableCellRenderer, Comparator<Person> {
+public class HoldingsHandler implements CellHandler {
   private Matchmaker matchmaker;
 
   public HoldingsHandler(Matchmaker matchmaker) {

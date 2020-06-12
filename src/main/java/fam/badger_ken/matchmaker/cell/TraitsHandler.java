@@ -13,7 +13,7 @@ import javax.swing.table.TableCellRenderer;
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
-public class TraitsHandler implements TableCellRenderer, Comparator<Person> {
+public class TraitsHandler implements CellHandler {
   Matchmaker matchmaker;
   public TraitsHandler(Matchmaker matchmaker) {
     this.matchmaker = matchmaker;

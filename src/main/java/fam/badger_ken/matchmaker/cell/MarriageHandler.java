@@ -13,12 +13,11 @@ import javax.swing.table.TableCellRenderer;
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
-public class MarriageHandler implements TableCellRenderer, Comparator<Person> {
-  Matchmaker matchmaker;
+public class MarriageHandler implements CellHandler {
   private JLabel yesLabel;
   private JLabel noLabel;
 
-  public MarriageHandler(Matchmaker matchmaker) {
+  public MarriageHandler() {
     yesLabel = new JLabel("y");
     yesLabel.setHorizontalAlignment(JLabel.CENTER);
     noLabel = new JLabel("-");

@@ -74,7 +74,7 @@ public class SaveState {
                 continue;
             }
             String name = child.findAttribute("name");
-            String culture = child.findAttribute("culture");
+            String culture = child.findAttribute("cul");
             Dynasty dynasty = new Dynasty(key, name, culture);
             dynasties.put(key, dynasty);
             numDynasties++;
@@ -238,12 +238,15 @@ public class SaveState {
             Person parent = people.get(person.fatherKey);
             if (parent != null) {
                 parent.addChild(person.isMale);
+                person.fatherIsAlive();
             }
             parent = people.get(person.motherKey);
             if (parent != null) {
                 parent.addChild(person.isMale);
+                person.motherIsAlive();
             }
         }
+
         // attributes less than 0 are upped to zero
         for (Person person : people.values()) {
             if (person.adjustedAttributes == null) continue;
@@ -350,7 +353,6 @@ public class SaveState {
     }
 
     private void addArtifact(Integer holder, Artifact artifact) {
-        System.out.println("Adding artifact for person: " + holder + " -> " + artifact.toString());
         Set<Artifact> artifacts = artifactsByHolder.get(holder);
         if (artifacts == null) {
             artifacts = new HashSet<>();

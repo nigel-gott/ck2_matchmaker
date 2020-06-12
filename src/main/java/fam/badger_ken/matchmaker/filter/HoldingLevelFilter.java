@@ -54,7 +54,7 @@ public class HoldingLevelFilter implements Filterer {
     } else {
       level = person.getHoldings().iterator().next().holdingLevel.weight;
     }
-    return isMinFilter == (level >= threshold);
+    return isMinFilter ? (level >= threshold) : (level <= threshold);
   }
 
   @Override

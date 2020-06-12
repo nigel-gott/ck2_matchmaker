@@ -12,7 +12,7 @@ import javax.swing.table.TableCellRenderer;
 
 import fam.badger_ken.matchmaker.Person;
 
-public class KidsHandler implements TableCellRenderer, Comparator<Person> {
+public class KidsHandler implements CellHandler {
 
   @Override
   public int compare(Person arg0, Person arg1) {

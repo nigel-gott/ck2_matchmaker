@@ -12,8 +12,9 @@ import javax.swing.table.TableCellRenderer;
 
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
+import fam.badger_ken.matchmaker.widget.CopyableLabel;
 
-public class NameHandler implements TableCellRenderer, Comparator<Person> {
+public class NameHandler implements CellHandler {
   Matchmaker matchmaker;
   public NameHandler(Matchmaker matchmaker) {
     this.matchmaker = matchmaker;

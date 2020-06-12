@@ -3,12 +3,9 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.table.AbstractTableModel;
-
-import fam.badger_ken.matchmaker.cell.*;
 
 /**
  * This handles all the data in the table,
@@ -16,34 +13,11 @@ import fam.badger_ken.matchmaker.cell.*;
  * into two different places.
  */
 public class ViewTableModel extends AbstractTableModel {
-  String [] columnNames = {
-      "Age",
-      "Gender",
-      "#Spouses",
-      "Kids",
-      "Name",
-      "Dynasty",
-      "Holdings",
-      //"Ruler?",
-      "#Claims",
-      "Diplomacy",
-      "Martial",
-      "Steward",
-      "Intrigue",
-      "Learning",
-      "Traits",
-      "Religion",
-      "Culture",
-      "Piety",
-      "Wealth",
-      "Home",
-          "Artefacts"
-  };
 
-  private Matchmaker matchmaker;
+  private final List<Column> columns;
 
-  public ViewTableModel(Matchmaker matchmaker) {
-    this.matchmaker = matchmaker;
+  public ViewTableModel(final List<Column> columns) {
+    this.columns = columns;
   }
 
   /**
@@ -56,7 +30,7 @@ public class ViewTableModel extends AbstractTableModel {
 
   @Override
   public int getColumnCount() {
-    return columnNames.length;
+    return this.columns.size();
   }
 
   @Override
@@ -77,13 +51,13 @@ public class ViewTableModel extends AbstractTableModel {
   }
 
   @Override
-  public String getColumnName(int arg0) {
-    return columnNames[arg0];
+  public String getColumnName(int i) {
+    return this.columns.get(i).getColumnName();
   }
 
   /**
    * Reset the contents in the table, given this list of winners.
-   * @param winners the winners.
+   * @param newWinners the winners.
    */
   public void reset(List<Person> newWinners) {
     int oldSize = this.winners == null ? 0 : this.winners.size();
@@ -105,26 +79,33 @@ public class ViewTableModel extends AbstractTableModel {
   }
 
   public void setColumnComparators(ViewTableSorter sorter) {
-    int column = 0;
-    sorter.setComparator(column++, new AgeHandler());
-    sorter.setComparator(column++, new GenderHandler(matchmaker));
-    sorter.setComparator(column++, new MarriageHandler(matchmaker));
-    sorter.setComparator(column++, new KidsHandler());
-    sorter.setComparator(column++, new NameHandler(matchmaker));
-    sorter.setComparator(column++, new DynastyHandler(matchmaker));
-    sorter.setComparator(column++, new HoldingsHandler(matchmaker));
-    //sorter.setComparator(column++, new RulerHandler(matchmaker));
-    sorter.setComparator(column++, new ClaimsHandler());
-    for (int j = 0; j < GameConfig.NUM_ATTRIBUTES; j++) {
-      sorter.setComparator(column++, new AttributeHandler(matchmaker, j));
+    for (int i = 0; i < this.columns.size(); i++) {
+      sorter.setComparator(i, this.columns.get(i).getComparator());
     }
-    sorter.setComparator(column++, new TraitsHandler(matchmaker));
-    sorter.setComparator(column++, new ReligionHandler(matchmaker));
-    sorter.setComparator(column++, new CultureHandler(matchmaker));
-    sorter.setComparator(column++, new PietyHandler());
-    sorter.setComparator(column++, new WealthHandler());
-    sorter.setComparator(column++, new HomeHandler(matchmaker));
-    sorter.setComparator(column++, new ArtifactsHandler(matchmaker));
+//    int column = 0;
+//    sorter.setComparator(column++, new AgeHandler());
+//    sorter.setComparator(column++, new GenderHandler(matchmaker));
+//    sorter.setComparator(column++, new MarriageHandler(matchmaker));
+//    sorter.setComparator(column++, new KidsHandler());
+//    sorter.setComparator(column++, new NameHandler(matchmaker));
+//    sorter.setComparator(column++, new DynastyHandler(matchmaker));
+//    sorter.setComparator(column++, new HoldingsHandler(matchmaker));
+//    //sorter.setComparator(column++, new RulerHandler(matchmaker));
+//    sorter.setComparator(column++, new ClaimsHandler());
+//    for (int j = 0; j < GameConfig.NUM_ATTRIBUTES; j++) {
+//      sorter.setComparator(column++, new AttributeHandler(matchmaker, j));
+//    }
+//    sorter.setComparator(column++, new TraitsHandler(matchmaker));
+//    sorter.setComparator(column++, new ReligionHandler(matchmaker));
+//    sorter.setComparator(column++, new CultureHandler(matchmaker));
+//    sorter.setComparator(column++, new PietyHandler());
+//    sorter.setComparator(column++, new WealthHandler());
+//    sorter.setComparator(column++, new HomeHandler(matchmaker));
+//    sorter.setComparator(column++, new ArtifactsHandler(matchmaker));
 
+  }
+
+  public List<Column> getColumns() {
+    return this.columns;
   }
 }

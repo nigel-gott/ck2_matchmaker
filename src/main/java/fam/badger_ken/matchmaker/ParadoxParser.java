@@ -6,6 +6,8 @@ package fam.badger_ken.matchmaker;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 /**
  * Parses paradox files into a tree.
@@ -34,9 +36,10 @@ public class ParadoxParser {
    */
   public ParadoxParser(String fileName, String why) throws FileNotFoundException {
     try {
-      BufferedReader reader = new BufferedReader(new FileReader(fileName));
+      // CK2 Save files are encoded in this Charset
+      BufferedReader reader = new BufferedReader(new FileReader(fileName, Charset.forName("Windows-1252")));
       iScanner = new ParadoxScanner(reader);
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       throw new FileNotFoundException("Could not open " + why + " file " + fileName);
     }
   }
