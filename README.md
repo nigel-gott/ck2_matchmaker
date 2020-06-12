@@ -11,5 +11,5 @@ Many thanks to the original author badger_ken. Ken can be contacted at #TODO INS
 Please free feel to open feature requests or report bugs as issues. Pull requests are also very welcome! 
 
 ## Installation
-TODO
+On the [https://github.com/nigel-gott/ck2_matchmaker/releases](releases page) download the latest release ZIP. Extract this and run the exe if on windows or the jar inside the lib folder for other operating systems. You might have to mark the exe or jar as executable or trusted before being able to run it because no signing is currently being performed. 
 
