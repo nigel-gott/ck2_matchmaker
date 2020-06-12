@@ -23,7 +23,7 @@ Please raise any issues you encounter on this repo in the issues tab above or in
 4. In Windows:
     1. Run the `matchmaker_ck2` Application 
     2. Windows might detect it is an unrecognised app.
-    3. If so click More info and then `Run anyway` 
+    3. If so click `More info` and then `Run anyway` 
 5. In Linux
     1. Go into the sub folder lib and double click `matchmaker_ck2-2.0-all.jar` to run
     2. If it does not run you may have to install java first, follow https://java.com/en/download/help/linux_x64_install.xml
