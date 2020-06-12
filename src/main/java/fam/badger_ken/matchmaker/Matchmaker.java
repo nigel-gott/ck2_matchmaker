@@ -21,7 +21,7 @@ import fam.badger_ken.matchmaker.filter.FiltererFilter;
  * The main top-level driver class.
  */
 public class Matchmaker implements ParserPruner {
-  
+
   public static final String VERSION_NUMBER = "1.9";
   public SaveState saveState;
   public GameConfig gameConfig;
@@ -29,7 +29,7 @@ public class Matchmaker implements ParserPruner {
   private Set<Filterer> filters = new HashSet<Filterer>();
   private String saveFileTail = "";
   // used by the parser pruner - nodes with these tags are discarded.
-  private String[] tagsToPrune = 
+  private String[] tagsToPrune =
   { "ai", "ledger", "army", "navy", "history", "active_war", "combat", "tech_focus",
       "coat_of_arms", "technology", "levy" };
   Set<String> loadedModNames = null;
@@ -43,7 +43,7 @@ public class Matchmaker implements ParserPruner {
   public void addFilter(Filterer filter) {
     filters.add(filter);
   }
-  
+
   public void removeFilters(FiltererFilter filterfilter) {
     // copy it over, then remove, as you can't remove from a set
     // you're iterating over.
@@ -101,12 +101,14 @@ public class Matchmaker implements ParserPruner {
     Node root = new Node("save");
     ParadoxParser parser = new ParadoxParser(saveFile.getPath(), "save file parser");
     parser.Parse(root, this);
-    saveState.rawDate = root.findAttribute("start_date");
+    saveState.rawDate = root.findAttribute("date");
     if(saveState.rawDate == null){
       System.out.println("Its null, dump!");
       root.dumpAttributes();
       throw new RuntimeException("Failed blah");
     }
+    saveState.loadArtifacts(root.findDescendant("artifacts"));
+
     saveState.playerRealm = root.findAttribute("player_realm");
     // figure out what all the places are that are 'held' by a character,
     // and which. the place can be a barony, county, duchy, kingdom, or empire.
@@ -117,6 +119,7 @@ public class Matchmaker implements ParserPruner {
     // load the dynasties from the save-game file:
     Node dynasties = root.findDescendant("dynasties");
     saveState.loadDynasties(dynasties);
+
     // and load each from dynasties.txt:
 //    parser = new ParadoxParser(
 //        installationDir + File.separator + "common" + File.separator + "dynasties.txt",
@@ -157,14 +160,14 @@ public class Matchmaker implements ParserPruner {
     for (String unused : allLabels) {
       gameConfig.religionsByLabel.remove(unused);
     }
-    
+
   }
 
   public void clear() {
     saveState = null;
     gameConfig = null;
   }
-  
+
 
   private void parseDynastiesDir(String dirBase) {
     File dir = new File(dirBase);
@@ -218,7 +221,7 @@ public class Matchmaker implements ParserPruner {
         parser.Parse(traitsRoot);
         gameConfig.parseTraits(traitsRoot, traitsTrace);
         //System.err.println("after parsing " + file + ", numTraits = " + t);
-        
+
       } catch (FileNotFoundException e) {
         continue;
       } catch (IOException e) {
@@ -231,7 +234,7 @@ public class Matchmaker implements ParserPruner {
     if (saveState == null) {
       return "failed to load.";
     }
-    
+
     String answer = "loaded " + saveState.people.size() + " nobles "
       + " and " + saveState.dynasties.size() + " dynasties"
       + " from " + saveFileTail;
@@ -347,6 +350,9 @@ public class Matchmaker implements ParserPruner {
       bw.write(SEP + winner.getWealth());
       // home
       bw.write(SEP + winner.getHomeName(gameConfig, saveState));
+      // artefacts
+      bw.write(SEP + Util.csvEscape(winner.getDisplayableArtifacts()));
+
       // and then the extra: prestige
       bw.write(SEP + (winner.prestige == null ? "0" : winner.prestige));
       bw.newLine();

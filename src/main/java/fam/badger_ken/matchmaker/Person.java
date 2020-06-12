@@ -52,10 +52,15 @@ public class Person {
   private String displayCulture = null;
   private String displayTitle = null;
   private String displayHoldings = null;
+  private String displayArtifacts = null;
+
   // holdings, most important one first
   private Set<Holding> holdings = null;
   // their title - set in a special pass
   private Title title = Title.TITLE_NONE;
+
+   public Set<Artifact> artifacts = new HashSet<>();
+
 
   public Person(Integer key) {
     this.key = key;
@@ -102,6 +107,12 @@ public class Person {
   
   public void setHoldings(Set<Holding> holdings) {
     this.holdings = holdings;
+  }
+  public void setArtifacts(Set<Artifact> artifacts) {
+    if(artifacts != null){
+      this.artifacts = artifacts;
+
+    }
   }
 
   // lazy eval.
@@ -247,6 +258,9 @@ public class Person {
   public Set<Holding> getHoldings() {
     return holdings;
   }
+  public Set<Artifact> getArtifacts() {
+    return artifacts;
+  }
   
   public String getDisplayableHoldings(GameConfig gameConfig) {
     if (displayHoldings == null) {
@@ -284,4 +298,23 @@ public class Person {
     Holding best = (Holding) holdings.toArray()[0];
     return best.holdingLevel;
   }
+
+  public String getDisplayableArtifacts() {
+    if (displayArtifacts == null) {
+      if (artifacts == null || artifacts.isEmpty()) {
+        displayArtifacts = "";
+      } else {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        for (Artifact artifact : artifacts) {
+          if (i != 0) {
+            sb.append(", ");
+          }
+          sb.append(artifact.getDisplayName());
+          i++;
+        }
+        displayArtifacts = sb.toString();
+      }
+    }
+    return displayArtifacts;  }
 }

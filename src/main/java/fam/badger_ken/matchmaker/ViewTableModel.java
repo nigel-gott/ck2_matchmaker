@@ -8,21 +8,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import fam.badger_ken.matchmaker.cell.AgeHandler;
-import fam.badger_ken.matchmaker.cell.AttributeHandler;
-import fam.badger_ken.matchmaker.cell.ClaimsHandler;
-import fam.badger_ken.matchmaker.cell.CultureHandler;
-import fam.badger_ken.matchmaker.cell.DynastyHandler;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
-import fam.badger_ken.matchmaker.cell.HoldingsHandler;
-import fam.badger_ken.matchmaker.cell.HomeHandler;
-import fam.badger_ken.matchmaker.cell.KidsHandler;
-import fam.badger_ken.matchmaker.cell.MarriageHandler;
-import fam.badger_ken.matchmaker.cell.NameHandler;
-import fam.badger_ken.matchmaker.cell.PietyHandler;
-import fam.badger_ken.matchmaker.cell.ReligionHandler;
-import fam.badger_ken.matchmaker.cell.TraitsHandler;
-import fam.badger_ken.matchmaker.cell.WealthHandler;
+import fam.badger_ken.matchmaker.cell.*;
 
 /**
  * This handles all the data in the table,
@@ -50,7 +36,8 @@ public class ViewTableModel extends AbstractTableModel {
       "Culture",
       "Piety",
       "Wealth",
-      "Home"
+      "Home",
+          "Artefacts"
   };
 
   private Matchmaker matchmaker;
@@ -137,5 +124,7 @@ public class ViewTableModel extends AbstractTableModel {
     sorter.setComparator(column++, new PietyHandler());
     sorter.setComparator(column++, new WealthHandler());
     sorter.setComparator(column++, new HomeHandler(matchmaker));
+    sorter.setComparator(column++, new ArtifactsHandler(matchmaker));
+
   }
 }

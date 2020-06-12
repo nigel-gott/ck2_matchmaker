@@ -45,24 +45,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import fam.badger_ken.matchmaker.filter.*;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import fam.badger_ken.matchmaker.ReligionGroup.PruningMode;
-import fam.badger_ken.matchmaker.filter.AgeFilter;
-import fam.badger_ken.matchmaker.filter.AttributeFilter;
-import fam.badger_ken.matchmaker.filter.ClaimsFilter;
-import fam.badger_ken.matchmaker.filter.CultureFilter;
-import fam.badger_ken.matchmaker.filter.DynastyFilter;
-import fam.badger_ken.matchmaker.filter.FiltererFilter;
-import fam.badger_ken.matchmaker.filter.GenderFilter;
-import fam.badger_ken.matchmaker.filter.HoldingLevelFilter;
-import fam.badger_ken.matchmaker.filter.KidsFilter;
-import fam.badger_ken.matchmaker.filter.SpousesFilter;
-import fam.badger_ken.matchmaker.filter.PietyFilter;
-import fam.badger_ken.matchmaker.filter.ReligionFilter;
-import fam.badger_ken.matchmaker.filter.RulerFilter;
-import fam.badger_ken.matchmaker.filter.TraitFilter;
-import fam.badger_ken.matchmaker.filter.WealthFilter;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 import fam.badger_ken.matchmaker.widget.AnyItemForDropdown;
 import fam.badger_ken.matchmaker.widget.DynastySelector;
@@ -202,6 +188,8 @@ public class SwingGui implements ResultMaker {
     final SpousesFilter maxSpousesFilter = new SpousesFilter(resultMaker, false);
     matchmaker.addFilter(minSpousesFilter);
     matchmaker.addFilter(maxSpousesFilter);
+    final HasArtifactFilter artifactFilter = new HasArtifactFilter(resultMaker);
+    matchmaker.addFilter(artifactFilter);
     
     final RulerFilter rulerFilter = new RulerFilter(resultMaker);
     matchmaker.addFilter(rulerFilter);
@@ -952,6 +940,12 @@ public class SwingGui implements ResultMaker {
     
     UnsettableTextField maxWealthField = new UnsettableTextField(3, maxWealthFilter);
     panel.add(maxWealthField);
+
+    JPanel artifactFilterPanel = new JPanel();
+    tabbedPane.addTab("Artifact", null, artifactFilterPanel, null);
+
+    TwoPlusAnyComboBox artifactComboBox = new TwoPlusAnyComboBox("Has Artifact", "No Artifacts", artifactFilter);
+    artifactFilterPanel.add(artifactComboBox);
     
 
 

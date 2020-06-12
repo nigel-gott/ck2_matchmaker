@@ -7,21 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import fam.badger_ken.matchmaker.cell.AgeHandler;
-import fam.badger_ken.matchmaker.cell.AttributeHandler;
-import fam.badger_ken.matchmaker.cell.ClaimsHandler;
-import fam.badger_ken.matchmaker.cell.CultureHandler;
-import fam.badger_ken.matchmaker.cell.DynastyHandler;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
-import fam.badger_ken.matchmaker.cell.HoldingsHandler;
-import fam.badger_ken.matchmaker.cell.HomeHandler;
-import fam.badger_ken.matchmaker.cell.KidsHandler;
-import fam.badger_ken.matchmaker.cell.MarriageHandler;
-import fam.badger_ken.matchmaker.cell.NameHandler;
-import fam.badger_ken.matchmaker.cell.PietyHandler;
-import fam.badger_ken.matchmaker.cell.ReligionHandler;
-import fam.badger_ken.matchmaker.cell.TraitsHandler;
-import fam.badger_ken.matchmaker.cell.WealthHandler;
+import fam.badger_ken.matchmaker.cell.*;
 
 /**
  * The table that shows the winners.
@@ -85,6 +71,8 @@ public class ViewTable extends JTable {
     columnModel.getColumn(column++).setCellRenderer(new PietyHandler());
     columnModel.getColumn(column++).setCellRenderer(new WealthHandler());
     columnModel.getColumn(column++).setCellRenderer(new HomeHandler(matchmaker));
+    columnModel.getColumn(column++).setCellRenderer(new ArtifactsHandler(matchmaker));
+
   }	
 
   public void setColumnWidths() {
@@ -112,5 +100,6 @@ public class ViewTable extends JTable {
     columns.getColumn(column++).setMaxWidth(3* shortWidth);  // piety
     columns.getColumn(column++).setMaxWidth(3* shortWidth);  // wealth
     column++;  // home
+    columns.getColumn(column++).setMaxWidth(3* shortWidth);  // artifacts
   }
 }

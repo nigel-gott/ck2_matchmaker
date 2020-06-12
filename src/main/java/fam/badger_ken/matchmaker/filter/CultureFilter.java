@@ -47,7 +47,7 @@ public class CultureFilter implements Filterer {
   @Override
   public boolean passes(Person person) {
     if (!onNow) return true;
-    return isPresenceChecker == (person.cultureLabel.equals(value)); 
+    return isPresenceChecker == value.equals(person.cultureLabel);
   }
 
   @Override

@@ -1,5 +1,7 @@
 plugins {
     java
+    application
+
 }
 
 group = "org.example"
@@ -9,16 +11,19 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation(files("lib/swingx-core-1.6.2-AutoCompletition.jar"))
 }
-repositories {
-}
 
-
-dependencies {
-}
 
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
+
+
+
+application {
+    mainClassName = "fam.badger_ken.matchmaker.SwingGui"
+}
+

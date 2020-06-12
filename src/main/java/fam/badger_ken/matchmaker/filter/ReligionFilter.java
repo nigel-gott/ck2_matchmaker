@@ -47,7 +47,7 @@ public class ReligionFilter implements Filterer {
   @Override
   public boolean passes(Person person) {
     if (!onNow) return true;
-    return isPresenceChecker == (person.religionLabel.equals(value)); 
+    return isPresenceChecker == value.equals(person.religionLabel);
   }
 
   @Override
