@@ -16,8 +16,8 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * The 'CultureFilter' filters for presence/absence of a given culture.
  */
 public class CultureFilter implements Filterer {
-  private ResultMaker resultMaker;
-  private boolean isPresenceChecker;
+  private final ResultMaker resultMaker;
+  private final boolean isPresenceChecker;
 
   private boolean onNow = false;
   private String value = null;  // the religion label
@@ -29,7 +29,7 @@ public class CultureFilter implements Filterer {
 
   @Override
   public void notify(JComponent changee, JComponent backgrounder) {
-    JComboBox box = (JComboBox) changee;
+    JComboBox<AnyDropdownable> box = (JComboBox<AnyDropdownable>) changee;
     AnyDropdownable dropdown = (AnyDropdownable) box.getSelectedItem();
     String newValue = (String) dropdown.infoForFilter();
     boolean toBeOn = (newValue != null);

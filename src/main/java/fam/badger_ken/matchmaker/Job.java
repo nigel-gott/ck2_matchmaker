@@ -4,7 +4,7 @@
 package fam.badger_ken.matchmaker;
 
 public class Job {
-  public String label;  // e.g. job_spiritual
+  public final String label;  // e.g. job_spiritual
   public String displayName;  // e.g. Lord Spiritual
 
   public Job(String label) {

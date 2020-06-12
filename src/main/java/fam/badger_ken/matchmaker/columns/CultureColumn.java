@@ -2,7 +2,6 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.CultureHandler;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.filter.CultureFilter;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 import fam.badger_ken.matchmaker.widget.UnsettableComboBox;
@@ -26,7 +25,7 @@ public class CultureColumn extends Column {
 
     @Override
     public String convertPersonToCsv(Person winner, GameConfig gameConfig, SaveState saveState) {
-        return Util.csvEscape(winner.getDisplayCulture(gameConfig, saveState));
+        return Util.csvEscape(winner.getDisplayCulture(gameConfig));
     }
 
     // See fam.badger_ken.matchmaker.SwingGui.initialize

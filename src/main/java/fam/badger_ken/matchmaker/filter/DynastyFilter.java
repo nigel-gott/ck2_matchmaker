@@ -18,8 +18,8 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * The 'DynastyFilter' filters for presence/absence of a given dynasty.
  */
 public class DynastyFilter implements Filterer {
-  private ResultMaker resultMaker;
-  private boolean isPresenceChecker;
+  private final ResultMaker resultMaker;
+  private final boolean isPresenceChecker;
 
   private boolean onNow = false;
   private Integer value = null;

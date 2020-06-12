@@ -9,14 +9,14 @@ import java.util.List;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 
 public class Trait implements AnyDropdownable {
-  public Integer key;
-  public String label;
+  public final Integer key;
+  public final String label;
   public String displayName;
-  public List<AttributeImpact> impacts;
+  public final List<AttributeImpact> impacts;
 
   public static class AttributeImpact {
-    public AttributeInfo impactee;
-    public int impact;
+    public final AttributeInfo impactee;
+    public final int impact;
 
 
     public AttributeImpact(AttributeInfo impactee, int impact) {
@@ -30,7 +30,7 @@ public class Trait implements AnyDropdownable {
     this.key = key;
     this.label = label;
     this.displayName = label;  // a default.
-    this.impacts = new ArrayList<AttributeImpact>();
+    this.impacts = new ArrayList<>();
   }
 
   public void addImpact(AttributeInfo impactee, int impact) {

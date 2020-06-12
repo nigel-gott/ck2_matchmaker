@@ -4,19 +4,17 @@
 package fam.badger_ken.matchmaker.cell;
 
 import java.awt.Component;
-import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
 public class AttributeHandler implements CellHandler {
-  private int ordinality;
+  private final int ordinality;
 
-  Matchmaker matchmaker;
+  final Matchmaker matchmaker;
   public AttributeHandler(Matchmaker matchmaker, int ordinality) {
     this.matchmaker = matchmaker;
     this.ordinality = ordinality;

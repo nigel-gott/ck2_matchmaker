@@ -11,9 +11,9 @@ package fam.badger_ken.matchmaker.widget;
  *
  */
 public class AnyItemForDropdown implements AnyDropdownable {
-  private boolean isAny;
-  private Object filterValue;
-  private String stringRep;
+  private final boolean isAny;
+  private final Object filterValue;
+  private final String stringRep;
 
   public AnyItemForDropdown(boolean isAny, Object filterValue, String stringRep) {
     this.isAny = isAny;

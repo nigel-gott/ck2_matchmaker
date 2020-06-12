@@ -1,12 +1,9 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.AgeHandler;
 import fam.badger_ken.matchmaker.cell.GenderHandler;
-import fam.badger_ken.matchmaker.filter.AgeFilter;
 import fam.badger_ken.matchmaker.filter.GenderFilter;
 import fam.badger_ken.matchmaker.widget.TwoPlusAnyComboBox;
-import fam.badger_ken.matchmaker.widget.UnsettableTextField;
 
 import javax.swing.*;
 import java.awt.*;

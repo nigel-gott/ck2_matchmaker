@@ -1,11 +1,8 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.cell.HoldingsHandler;
-import fam.badger_ken.matchmaker.cell.RulerHandler;
 import fam.badger_ken.matchmaker.filter.HoldingLevelFilter;
-import fam.badger_ken.matchmaker.filter.RulerFilter;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 import fam.badger_ken.matchmaker.widget.AnyItemForDropdown;
 import fam.badger_ken.matchmaker.widget.UnsettableComboBox;
@@ -38,7 +35,7 @@ public class HoldingsColumn extends Column {
             //TwoPlusAnyComboBox rulerComboBox = new TwoPlusAnyComboBox("Yes", "No", rulerFilter);
             //rulerFilterPanel.add(rulerComboBox);
             UnsettableComboBox holdingsBox = new UnsettableComboBox();
-            Vector<AnyDropdownable> entries = new Vector<AnyDropdownable>();
+            Vector<AnyDropdownable> entries = new Vector<>();
             entries.add(new AnyItemForDropdown());
             entries.add(HoldingLevel.NONE);
             entries.add(HoldingLevel.BARONY);

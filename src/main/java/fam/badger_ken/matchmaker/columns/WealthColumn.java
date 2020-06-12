@@ -2,8 +2,6 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.WealthHandler;
-import fam.badger_ken.matchmaker.cell.WealthHandler;
-import fam.badger_ken.matchmaker.filter.WealthFilter;
 import fam.badger_ken.matchmaker.filter.WealthFilter;
 import fam.badger_ken.matchmaker.widget.UnsettableTextField;
 

@@ -6,8 +6,8 @@ package fam.badger_ken.matchmaker;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 
 public class Culture implements AnyDropdownable {
-  public String label;  // e.g. 'maghreb_arabic'
-  public String displayName;  // e.g. 'Maghreb'
+  public final String label;  // e.g. 'maghreb_arabic'
+  public final String displayName;  // e.g. 'Maghreb'
 
   public Culture(String label, String displayName) {
     this.label = label;

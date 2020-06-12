@@ -6,21 +6,21 @@ import java.util.Map;
 // Christian, Muslim, Pagan, etc.
 public class ReligionGroup {
   // the pruning modes we support:
-  public static enum PruningMode {
+  public enum PruningMode {
     CHRISTIAN_ONLY,
     MUSLIM_ONLY,
     ALL
-  };
-  
-  public String label;
-  public String displayName;
-  Map<String, Religion> religionsByLabel;
+  }
+
+  public final String label;
+  public final String displayName;
+  final Map<String, Religion> religionsByLabel;
   boolean ignoreOnLoad = false;
   
   public ReligionGroup(String label) {
     this.label = label;
     displayName = label;
-    religionsByLabel = new HashMap<String, Religion>();
+    religionsByLabel = new HashMap<>();
   }
   
   public void addReligion(Religion relig) {

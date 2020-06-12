@@ -1,7 +1,6 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.cell.HomeHandler;
 
 import java.awt.*;

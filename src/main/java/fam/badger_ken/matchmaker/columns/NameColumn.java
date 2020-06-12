@@ -1,7 +1,6 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.cell.NameHandler;
 
 import java.awt.*;
@@ -16,7 +15,7 @@ public class NameColumn extends Column {
 
     @Override
     public String convertPersonToCsv(Person winner, GameConfig gameConfig, SaveState saveState) {
-        return Util.csvEscape(winner.getDisplayName(gameConfig, saveState));
+        return Util.csvEscape(winner.getDisplayName(gameConfig));
     }
 
     @Override

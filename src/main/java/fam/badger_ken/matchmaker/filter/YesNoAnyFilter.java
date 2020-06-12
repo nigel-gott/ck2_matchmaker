@@ -17,11 +17,11 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * for 'gender' the labels may be 'Female/Male/Any'.
  */
 public abstract class YesNoAnyFilter implements Filterer {
-  private String yesLabel;
-  private String noLabel;
+  private final String yesLabel;
+  private final String noLabel;
   private boolean onNow;
   private boolean wantsYes;  // does the filter want 'yes' selected?
-  private ResultMaker resultMaker;
+  private final ResultMaker resultMaker;
 
   public YesNoAnyFilter(ResultMaker resultMaker, String yesLabel, String noLabel) {
     this.resultMaker = resultMaker;

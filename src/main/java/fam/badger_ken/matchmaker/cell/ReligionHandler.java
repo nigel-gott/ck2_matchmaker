@@ -4,25 +4,23 @@
 package fam.badger_ken.matchmaker.cell;
 
 import java.awt.Component;
-import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
 public class ReligionHandler implements CellHandler {
-  Matchmaker matchmaker;
+  final Matchmaker matchmaker;
   public ReligionHandler(Matchmaker matchmaker) {
     this.matchmaker = matchmaker;
   }
 
   @Override
   public int compare(Person arg0, Person arg1) {
-    String name0 = arg0.getDisplayReligion(matchmaker.gameConfig, matchmaker.saveState);
-    String name1 = arg1.getDisplayReligion(matchmaker.gameConfig, matchmaker.saveState);
+    String name0 = arg0.getDisplayReligion(matchmaker.gameConfig);
+    String name1 = arg1.getDisplayReligion(matchmaker.gameConfig);
     return name0.compareTo(name1);
   }
 
@@ -31,7 +29,7 @@ public class ReligionHandler implements CellHandler {
       boolean isSelected, boolean hasFocus, int row, int column) {
     Person person = (Person) value;
     if (person == null) return null;
-    String val = person.getDisplayReligion(matchmaker.gameConfig, matchmaker.saveState);
+    String val = person.getDisplayReligion(matchmaker.gameConfig);
     return new JLabel(val);
   }
 

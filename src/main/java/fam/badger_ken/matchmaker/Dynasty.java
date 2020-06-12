@@ -6,9 +6,9 @@ package fam.badger_ken.matchmaker;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 
 public class Dynasty implements AnyDropdownable {
-  public Integer key;
-  public String name;
-  public String culture;
+  public final Integer key;
+  public final String name;
+  public final String culture;
   public int size;  // how many nobles are in this dynasty.
 
   public Dynasty(Integer key, String name, String culture) {

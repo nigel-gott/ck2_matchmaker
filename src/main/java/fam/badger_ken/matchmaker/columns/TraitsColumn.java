@@ -1,7 +1,6 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.cell.TraitsHandler;
 import fam.badger_ken.matchmaker.filter.TraitFilter;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
@@ -27,7 +26,7 @@ public class TraitsColumn extends Column {
 
     @Override
     public String convertPersonToCsv(Person winner, GameConfig gameConfig, SaveState saveState) {
-        return Util.csvEscape(winner.getDisplayTraits(gameConfig, saveState));
+        return Util.csvEscape(winner.getDisplayTraits(gameConfig));
     }
 
     // See fam.badger_ken.matchmaker.SwingGui.initialize

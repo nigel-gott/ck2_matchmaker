@@ -22,13 +22,13 @@ import java.awt.FocusTraversalPolicy;
  * @author scheglov_ke
  */
 public class FocusTraversalOnArray extends FocusTraversalPolicy {
-	private final Component m_Components[];
+	private final Component[] m_Components;
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public FocusTraversalOnArray(Component components[]) {
+	public FocusTraversalOnArray(Component[] components) {
 		m_Components = components;
 	}
 	////////////////////////////////////////////////////////////////////////////
@@ -38,8 +38,7 @@ public class FocusTraversalOnArray extends FocusTraversalPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	private int indexCycle(int index, int delta) {
 		int size = m_Components.length;
-		int next = (index + delta + size) % size;
-		return next;
+		return (index + delta + size) % size;
 	}
 	private Component cycle(Component currentComponent, int delta) {
 		int index = -1;

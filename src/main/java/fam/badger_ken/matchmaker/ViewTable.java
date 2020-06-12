@@ -7,8 +7,6 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import fam.badger_ken.matchmaker.cell.*;
-
 import java.util.List;
 
 /**

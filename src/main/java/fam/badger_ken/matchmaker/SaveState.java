@@ -6,7 +6,6 @@ package fam.badger_ken.matchmaker;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.BitSet;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,23 +22,23 @@ import java.util.regex.Pattern;
  */
 public class SaveState {
     // parses a date into year, month, day-of-month.
-    private static Pattern DATE_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)");
+    private static final Pattern DATE_PATTERN = Pattern.compile("(\\d+)\\.(\\d+)\\.(\\d+)");
     public String rawDate;
     private LocalDate saveDate;
     public String playerRealm;
     // dynasties, indexed by key
-    Map<Integer, Dynasty> dynasties = new HashMap<>();
+    final Map<Integer, Dynasty> dynasties = new HashMap<>();
     // people, indexed by key
-    Map<Integer, Person> people = new HashMap<>();
+    final Map<Integer, Person> people = new HashMap<>();
     // needed dynasties: only compute once
     BitSet neededDynasties = null;
     // dynasties, sorted alphabetically.
     private Vector<Dynasty> sortedDynasties = null;
     // all holdings, indexed by holder. Set is ordered, highest rank first.
-    private Map<Integer, Set<Holding>> holdingsByHolder = new HashMap<>();
+    private final Map<Integer, Set<Holding>> holdingsByHolder = new HashMap<>();
     // all holdings, indexed by internal label
-    private Map<String, Holding> holdingsByLabel = new HashMap<>();
-    Map<Integer, Set<Artifact>> artifactsByHolder = new HashMap<>();
+    private final Map<String, Holding> holdingsByLabel = new HashMap<>();
+    final Map<Integer, Set<Artifact>> artifactsByHolder = new HashMap<>();
 
     /**
      * load the dynasties rooted at the given node.
@@ -154,18 +153,16 @@ public class SaveState {
             Node traitsNode = characterNode.findDescendant("tr");
             if (traitsNode != null) {
                 String[] traits = traitsNode.value.split("\\s+");
-                if (traits != null) {
-                    for (String sTrait : traits) {
-                        person.addTrait(Util.toInt(sTrait, null));
-            /*
-            Integer traitNum = Util.toInt(sTrait, null);
-            if (traitNum != null) {
-              traitsCount[traitNum]++;
-              if (traitNum > maxTrait) maxTrait = traitNum;
-            }
-            */
+                for (String sTrait : traits) {
+                    person.addTrait(Util.toInt(sTrait, null));
+        /*
+        Integer traitNum = Util.toInt(sTrait, null);
+        if (traitNum != null) {
+          traitsCount[traitNum]++;
+          if (traitNum > maxTrait) maxTrait = traitNum;
+        }
+        */
 
-                    }
                 }
             }
             Node attributesNode = characterNode.findDescendant("att");
@@ -306,12 +303,7 @@ public class SaveState {
                 }
             }
 
-            Collections.sort(sortedDynasties, new Comparator<Dynasty>() {
-                @Override
-                public int compare(Dynasty arg0, Dynasty arg1) {
-                    return arg0.toString().compareTo(arg1.toString());
-                }
-            });
+            sortedDynasties.sort(Comparator.comparing(Dynasty::toString));
 
         }
         return sortedDynasties;

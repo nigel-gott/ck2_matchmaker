@@ -8,10 +8,10 @@ package fam.badger_ken.matchmaker;
  * across all people, not for a particular person.
  */
 public class AttributeInfo {
-  public String localisationLabel;  // e.g. CHAR_STEWARDSHIP
+  public final String localisationLabel;  // e.g. CHAR_STEWARDSHIP
   public String displayLabel;  // e.g. Stewardship
-  public String internalLabel;  // name in other files, e.g. stewardship
-  public int ordinality;  // e.g. 2
+  public final String internalLabel;  // name in other files, e.g. stewardship
+  public final int ordinality;  // e.g. 2
 
   public AttributeInfo(String localisationLabel,
       String internalLabel, int ordinality) {

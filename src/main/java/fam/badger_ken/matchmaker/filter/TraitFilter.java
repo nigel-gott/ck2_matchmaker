@@ -17,8 +17,8 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * The 'TraitFilter' filters for presence/absence of a given trait.
  */
 public class TraitFilter implements Filterer {
-  private ResultMaker resultMaker;
-  private boolean isPresenceChecker;
+  private final ResultMaker resultMaker;
+  private final boolean isPresenceChecker;
 
   private boolean onNow = false;
   private Trait value = null;

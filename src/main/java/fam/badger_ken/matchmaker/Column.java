@@ -5,7 +5,6 @@ import fam.badger_ken.matchmaker.cell.CellHandler;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 
 public abstract class Column {

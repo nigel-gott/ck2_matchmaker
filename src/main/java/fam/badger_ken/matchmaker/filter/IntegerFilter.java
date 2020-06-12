@@ -19,11 +19,11 @@ import fam.badger_ken.matchmaker.Util;
  * a person, indicates the present value of the quantity in question.
  */
 public abstract class IntegerFilter implements Filterer {
-  private ResultMaker resultMaker;
-  private boolean isMinFilter;
+  private final ResultMaker resultMaker;
+  private final boolean isMinFilter;
 
-  private boolean onNow = false;
-  private Integer value = null;
+  private boolean onNow;
+  private Integer value;
   
   public IntegerFilter(ResultMaker resultMaker, boolean isMinFilter) {
     this.resultMaker = resultMaker;

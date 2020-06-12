@@ -17,11 +17,11 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * The 'HoldingLevelFilter' filters for a minimal holding level.
  */
 public class HoldingLevelFilter implements Filterer {
-  private ResultMaker resultMaker;
+  private final ResultMaker resultMaker;
 
   private boolean onNow = false;
   private Integer threshold = null;
-  private boolean isMinFilter;
+  private final boolean isMinFilter;
 
   public HoldingLevelFilter(ResultMaker resultMaker, boolean isMinFilter) {
     this.resultMaker = resultMaker;

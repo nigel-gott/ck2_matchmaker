@@ -3,8 +3,6 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker.widget;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -21,13 +19,13 @@ import fam.badger_ken.matchmaker.Filterer;
  * d) notifies a Filterer when its value changes, or its unset.
  *
  */
-public class TwoPlusAnyComboBox extends JComboBox implements Unsettable {
+public class TwoPlusAnyComboBox extends JComboBox<AnyDropdownable> implements Unsettable {
   private static final long serialVersionUID = 3911110800889661981L;
-  private Filterer filterer;
+  private final Filterer filterer;
   
   public TwoPlusAnyComboBox(String label1, String label2, final Filterer filterer) {
     this.filterer = filterer;
-    Vector<AnyDropdownable> items = new Vector<AnyDropdownable>();
+    Vector<AnyDropdownable> items = new Vector<>();
     // put the 'Any' item first, that makes it selected by default
     items.add(new AnyItemForDropdown());
     // now the item with the first label:
@@ -35,15 +33,11 @@ public class TwoPlusAnyComboBox extends JComboBox implements Unsettable {
     // and the second
     items.add(new AnyItemForDropdown(false, label2, label2));
     
-    setModel(new DefaultComboBoxModel(items));
+    setModel(new DefaultComboBoxModel<>(items));
     setMaximumRowCount(4);
     setOpaque(true);   
     
-    addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
-        filterer.notify((JComponent) arg0.getSource(), (JComponent) arg0.getSource());
-      }
-    });
+    addActionListener(arg0 -> filterer.notify((JComponent) arg0.getSource(), (JComponent) arg0.getSource()));
   }
 
   @Override

@@ -9,8 +9,8 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * The levels of holding, used in the UI as a filtering level.
  */
 public class HoldingLevel implements AnyDropdownable, Comparable<HoldingLevel> {
-  public String displayLabel; // 'Barony', 'County', ...
-  public int weight;
+  public final String displayLabel; // 'Barony', 'County', ...
+  public final int weight;
 
   public static final HoldingLevel NONE = new HoldingLevel('n', "None", 0);
   public static final HoldingLevel BARONY = new HoldingLevel('b', "Barony", 1);

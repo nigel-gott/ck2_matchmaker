@@ -4,10 +4,7 @@
 package fam.badger_ken.matchmaker;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Util {
 
@@ -23,21 +20,14 @@ public class Util {
     } catch (NumberFormatException e) {
       return dflt;
     }
-  };
+  }
 
   /**
    * Sort a set of files by name ascending.
    */
   public static List<File> sortFiles(File [] in) {
-    List<File> sortedList = new ArrayList<File>();
-    for (File inFile : in) {
-      sortedList.add(inFile);
-    }
-    Collections.sort(sortedList, new Comparator<File>() {
-      @Override
-      public int compare(File arg0, File arg1) {
-        return arg0.getName().compareTo(arg1.getName());
-      }});
+    List<File> sortedList = new ArrayList<>(Arrays.asList(in));
+    sortedList.sort(Comparator.comparing(File::getName));
     return sortedList;
   }
 
@@ -47,7 +37,7 @@ public class Util {
    * @return the escaped text
    */
   public static String csvEscape(String text) {
-    if (text == null) return text;
+    if (text == null) return null;
     // if no comma, done.
     if (!text.contains(",")) {
       return text;
@@ -63,6 +53,7 @@ public class Util {
    * @param i2 the second.
    * @return
    */
+  @SuppressWarnings("BooleanMethodIsAlwaysInverted")
   public static boolean guardedEquals(Integer i1, Integer i2) {
     if ((i1 == null) != (i2 == null)) return false;
     if (i1 == null) return true;  // both are null

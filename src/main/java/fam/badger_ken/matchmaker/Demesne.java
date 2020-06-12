@@ -7,7 +7,7 @@ package fam.badger_ken.matchmaker;
  * A single barony, bishopric, or county
  */
 public class Demesne {
-  public String label;  // e.g. b_ciudadrodrigo
+  public final String label;  // e.g. b_ciudadrodrigo
   // note we don't know if this is the town of, castle of, temple of, etc.
   public String shortDisplayName;  // e.g. "Ciudad Rodrigo"
 

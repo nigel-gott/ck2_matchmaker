@@ -7,14 +7,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Main storage class that stores all the game configuration,
@@ -23,21 +21,21 @@ import java.util.TreeSet;
  */
 public class GameConfig {
   // map from trait key to trait.
-  public Map<Integer, Trait> traits;
+  public final Map<Integer, Trait> traits;
   // the traits where the key is the label
-  public Map<String, Trait> traitsByLabel;
+  public final Map<String, Trait> traitsByLabel;
   // map from nickname label (e.g. 'nick_the_great' to display name
-  public Map<String, String> nicknamesByLabel;
+  public final Map<String, String> nicknamesByLabel;
   // map from job label (e.g. 'job_spiritual' to displayName
-  public Map<String, Job> jobsByLabel;
+  public final Map<String, Job> jobsByLabel;
   // map from religion label to religion
-  public Map<String, Religion> religionsByLabel;
+  public final Map<String, Religion> religionsByLabel;
   // map from culture label to culture
-  public Map<String, Culture> culturesByLabel;
+  public final Map<String, Culture> culturesByLabel;
   // map from title label to title
-  public Map<String, Title> titlesByLabel;
+  public final Map<String, Title> titlesByLabel;
   // map from demesne label to demesne
-  public Map<String, Demesne> demesnesByLabel;
+  public final Map<String, Demesne> demesnesByLabel;
   // map from religion group tag to group:
   public Map<String, ReligionGroup> religionGroupsByLabel;
   // Attribute info
@@ -45,36 +43,35 @@ public class GameConfig {
   public static final int NUM_ATTRIBUTES = 5;
 
   public GameConfig() {
-    this.traits = new HashMap<Integer, Trait>();
-    this.traitsByLabel = new HashMap<String, Trait>();
-    this.nicknamesByLabel = new HashMap<String, String>();
-    this.jobsByLabel = new HashMap<String, Job>();
-    this.religionsByLabel = new HashMap<String, Religion>();
-    this.culturesByLabel = new HashMap<String, Culture>();
-    this.titlesByLabel = new HashMap<String, Title>();
-    this.demesnesByLabel = new HashMap<String, Demesne>();
-    this.religionGroupsByLabel = new HashMap<String, ReligionGroup>();
+    this.traits = new HashMap<>();
+    this.traitsByLabel = new HashMap<>();
+    this.nicknamesByLabel = new HashMap<>();
+    this.jobsByLabel = new HashMap<>();
+    this.religionsByLabel = new HashMap<>();
+    this.culturesByLabel = new HashMap<>();
+    this.titlesByLabel = new HashMap<>();
+    this.demesnesByLabel = new HashMap<>();
+    this.religionGroupsByLabel = new HashMap<>();
     initializeAttributeInfo();
   }
 
   private void initializeAttributeInfo() {
     int i = 0;
-    attributeInfo = new ArrayList<AttributeInfo>(NUM_ATTRIBUTES);
+    attributeInfo = new ArrayList<>(NUM_ATTRIBUTES);
     attributeInfo.add(new AttributeInfo("CHAR_DIPLOMACY", "diplomacy", i++));
     attributeInfo.add(new AttributeInfo("CHAR_MARTIAL", "martial", i++));
     attributeInfo.add(new AttributeInfo("CHAR_STEWARDSHIP", "stewardship", i++));
     attributeInfo.add(new AttributeInfo("CHAR_INTRIGUE", "intrigue", i++));
-    attributeInfo.add(new AttributeInfo("CHAR_LEARNING", "learning", i++));
+    attributeInfo.add(new AttributeInfo("CHAR_LEARNING", "learning", i));
   }
 
-  private boolean isAttributeLabel(String localKey, String displayAs) {
+  private void setAttributeLabel(String localKey, String displayAs) {
     for (AttributeInfo attr : attributeInfo) {
       if (localKey.equals(attr.localisationLabel)) {
         attr.displayLabel = displayAs;
-        return true;
+        return;
       }
     }
-    return false;
   }
 
   /**
@@ -82,7 +79,7 @@ public class GameConfig {
    * The 'traitsTrace' is used to emit debug information for users.
    * @param traitsRoot
    */
-  public int parseTraits(Node traitsRoot, StringBuilder traitsTrace) {
+  public void parseTraits(Node traitsRoot, StringBuilder traitsTrace) {
     /*
      * the i'th trait in the file gets key (i + 1)
      */
@@ -92,7 +89,7 @@ public class GameConfig {
       traits.put(numTraits + 1, trait);
       traitsByLabel.put(trait.label, trait);
       if (traitsTrace != null) {
-        traitsTrace.append("\ntrait # " + (numTraits + 1) + " is '" + trait.label + "'");
+        traitsTrace.append("\ntrait # ").append(numTraits + 1).append(" is '").append(trait.label).append("'");
       }
       numTraits++;
       // and now spin through the traits to find their effects:
@@ -103,18 +100,17 @@ public class GameConfig {
           AttributeInfo attrInfo = getAttributeInfoFromInternalLabel(key);
           if (attrInfo != null) {
             try {
-              Integer impact = Integer.parseInt(effect);
+              int impact = Integer.parseInt(effect);
               trait.addImpact(attrInfo, impact);
               if (traitsTrace != null) {
-                traitsTrace.append("\n " + attrInfo.displayLabel + " is adjusted by " + impact + " by trait '" + trait.displayName + "'");
+                traitsTrace.append("\n ").append(attrInfo.displayLabel).append(" is adjusted by ").append(impact).append(" by trait '").append(trait.displayName).append("'");
               }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException ignored) {
             }
           }
         }
       }
     }
-    return numTraits;
   }
 
   private AttributeInfo getAttributeInfoFromInternalLabel(String key) {
@@ -131,25 +127,19 @@ public class GameConfig {
     if (!baseDir.isDirectory() || !baseDir.canRead()) {
       return;
     }
-    File [] files = baseDir.listFiles(new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String fileName) {
-        return fileName.endsWith(".txt");
-      }});
+    File [] files = baseDir.listFiles((dir, fileName) -> fileName.endsWith(".txt"));
     if (files == null) return;
-    religionGroupsByLabel = new HashMap<String, ReligionGroup>();
+    religionGroupsByLabel = new HashMap<>();
     for (File religionFile : Util.sortFiles(files)) {
       ParadoxParser parser;
       try {
         parser = new ParadoxParser(religionFile.getCanonicalPath(), "religion parser");
-      } catch (FileNotFoundException e) {
-        continue;
       } catch (IOException e) {
         continue;
       }
       Node root = new Node("religions");
       parser.Parse(root);
-      if (root == null || root.children == null) continue;
+      if (root.children == null) continue;
       // each child is a group, each grandchild is a religion in that group.
       for (Node groupNode : root.children) {
         ReligionGroup group = religionGroupsByLabel.get(groupNode.tag);
@@ -182,12 +172,10 @@ public class GameConfig {
     if (!localisationDir.isDirectory() || !localisationDir.canRead()) {
       return;
     }
-    File [] files = localisationDir.listFiles(new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String fileName) {
-        return true // some mods don't start their files with text fileName.startsWith("text")
-        && fileName.endsWith(".csv");
-      }});
+    File [] files = localisationDir.listFiles((dir, fileName) -> {
+      // some mods don't start their files with text fileName.startsWith("text")
+      return fileName.endsWith(".csv");
+    });
     if (files == null) return;
     for (File localisationFile : Util.sortFiles(files)) {
       loadLocalisationFile(localisationFile, neededCultures,
@@ -207,7 +195,7 @@ public class GameConfig {
           if (line.isEmpty()) continue;
           String [] fields = line.split(";");
           // key is the first field, english label is second.
-          if (fields == null || fields.length < 2) continue;
+          if (fields.length < 2) continue;
           // could add support for other languages, but I did that for Vic2
           // and nobody ever cared :(.
           String key = fields[0];
@@ -215,6 +203,7 @@ public class GameConfig {
           if (traitsByLabel.containsKey(key)) {
             traitsByLabel.get(key).displayName = value;
             if (traitsTrace != null) {
+              //noinspection StringConcatenationInsideStringBufferAppend
               traitsTrace.append("\n" + localisationFile.getCanonicalPath() + " defines trait "
                   + "'" + key + "' to display as '" + value + "'");
             }
@@ -231,16 +220,15 @@ public class GameConfig {
             Job job = new Job(key);
             job.displayName = value;
             jobsByLabel.put(key, job);
-          } else if (isAttributeLabel(key, value)) {
-            continue;
+          } else {
+            setAttributeLabel(key, value);
           }
         } catch (IOException e) {
           break;
         }
 
       }
-    } catch (FileNotFoundException e) {
-      return;
+    } catch (FileNotFoundException ignored) {
     }
 
   }

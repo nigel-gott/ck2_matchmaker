@@ -1,7 +1,6 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.cell.ReligionHandler;
 import fam.badger_ken.matchmaker.filter.ReligionFilter;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
@@ -26,7 +25,7 @@ public class ReligionColumn extends Column {
 
     @Override
     public String convertPersonToCsv(Person winner, GameConfig gameConfig, SaveState saveState) {
-        return Util.csvEscape(winner.getDisplayReligion(gameConfig, saveState));
+        return Util.csvEscape(winner.getDisplayReligion(gameConfig));
     }
 
     @Override

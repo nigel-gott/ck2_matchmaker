@@ -16,11 +16,11 @@ public interface DropdownMakerHelper extends FiltererFilter {
      * They are copied because otherwise Swing requires that they share the
      * same selection value.
      */
-    public Collection<? extends AnyDropdownable> getOriginalItems();
+    Collection<? extends AnyDropdownable> getOriginalItems();
 
     /**
      * @param isInclusion whether the dropdown box is inclusive.
      * @return a new filter to attach to a new dropdown box.
      */
-    public Filterer makeFilter(boolean isInclusion);
+    Filterer makeFilter(boolean isInclusion);
 }

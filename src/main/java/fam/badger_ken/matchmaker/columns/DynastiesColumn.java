@@ -2,7 +2,6 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.DynastyHandler;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.filter.DynastyFilter;
 import fam.badger_ken.matchmaker.widget.DynastySelector;
 
@@ -24,7 +23,7 @@ public class DynastiesColumn extends Column {
 
     @Override
     public String convertPersonToCsv(Person winner, GameConfig gameConfig, SaveState saveState) {
-        return Util.csvEscape(winner.getDisplayDynasty(gameConfig, saveState));
+        return Util.csvEscape(winner.getDisplayDynasty(saveState));
     }
 
     @Override

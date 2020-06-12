@@ -16,8 +16,8 @@ import fam.badger_ken.matchmaker.widget.AnyDropdownable;
  * The 'ReligionFilter' filters for presence/absence of a given religion.
  */
 public class ReligionFilter implements Filterer {
-  private ResultMaker resultMaker;
-  private boolean isPresenceChecker;
+  private final ResultMaker resultMaker;
+  private final boolean isPresenceChecker;
 
   private boolean onNow = false;
   private String value = null;  // the religion label

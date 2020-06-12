@@ -3,16 +3,10 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker.cell;
 
-import fam.badger_ken.matchmaker.Artifact;
-import fam.badger_ken.matchmaker.Holding;
-import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
 import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.util.Comparator;
-import java.util.Iterator;
 
 public class ArtifactsHandler implements CellHandler {
 

@@ -1,7 +1,6 @@
 package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.cell.PietyHandler;
 import fam.badger_ken.matchmaker.filter.PietyFilter;
 import fam.badger_ken.matchmaker.widget.UnsettableTextField;

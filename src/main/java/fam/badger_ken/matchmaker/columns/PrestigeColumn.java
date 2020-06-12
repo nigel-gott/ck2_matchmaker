@@ -2,7 +2,6 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.PrestigeHandler;
-import fam.badger_ken.matchmaker.cell.PrestigeHandler;
 import fam.badger_ken.matchmaker.filter.PrestigeFilter;
 import fam.badger_ken.matchmaker.widget.UnsettableTextField;
 

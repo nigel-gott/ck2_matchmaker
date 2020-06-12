@@ -2,12 +2,7 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.AttributeHandler;
-import fam.badger_ken.matchmaker.cell.MarriageHandler;
-import fam.badger_ken.matchmaker.filter.AttributeFilter;
-import fam.badger_ken.matchmaker.filter.SpousesFilter;
-import fam.badger_ken.matchmaker.widget.UnsettableTextField;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Optional;
 

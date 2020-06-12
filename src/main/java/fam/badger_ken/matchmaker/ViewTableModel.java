@@ -26,7 +26,7 @@ public class ViewTableModel extends AbstractTableModel {
   private static final long serialVersionUID = -2664493172757239738L;
   int x = 0;
 
-  private List<Person> winners = new ArrayList<Person>();
+  private List<Person> winners = new ArrayList<>();
 
   @Override
   public int getColumnCount() {

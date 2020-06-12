@@ -4,26 +4,14 @@
 package fam.badger_ken.matchmaker.cell;
 
 import java.awt.Component;
-import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
-import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
 public class MarriageHandler implements CellHandler {
-  private JLabel yesLabel;
-  private JLabel noLabel;
 
-  public MarriageHandler() {
-    yesLabel = new JLabel("y");
-    yesLabel.setHorizontalAlignment(JLabel.CENTER);
-    noLabel = new JLabel("-");
-    noLabel.setHorizontalAlignment(JLabel.CENTER);
-  }
-  
   @Override
   public int compare(Person arg0, Person arg1) {
     return arg0.getNumSpouses() - arg1.getNumSpouses();

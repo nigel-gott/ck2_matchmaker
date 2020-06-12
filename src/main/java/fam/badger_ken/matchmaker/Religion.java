@@ -6,9 +6,9 @@ package fam.badger_ken.matchmaker;
 import fam.badger_ken.matchmaker.widget.AnyDropdownable;
 
 public class Religion implements AnyDropdownable {
-  public String label;  // e.g. 'sunni'
+  public final String label;  // e.g. 'sunni'
   public String displayName;  // e.g. 'Sunni'
-  public ReligionGroup group;  // e.g. 'Muslim'
+  public final ReligionGroup group;  // e.g. 'Muslim'
 
   public Religion(ReligionGroup group, String label, String displayName) {
     this.group = group;

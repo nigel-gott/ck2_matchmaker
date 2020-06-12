@@ -200,7 +200,6 @@ public class Matchmaker implements ParserPruner {
                 }
                 parser.Parse(traitsRoot);
                 gameConfig.parseTraits(traitsRoot, traitsTrace);
-                //System.err.println("after parsing " + file + ", numTraits = " + t);
 
             } catch (IOException ignored) {
             }
@@ -242,7 +241,7 @@ public class Matchmaker implements ParserPruner {
      */
     public String filter() {
         int maxToShow = 400;
-        if (saveState == null || saveState.people == null || saveState.people.size() == 0) {
+        if (saveState == null || saveState.people.size() == 0) {
             winners = new ArrayList<>();
             return " none to show";
         }

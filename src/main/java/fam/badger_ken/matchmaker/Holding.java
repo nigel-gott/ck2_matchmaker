@@ -8,12 +8,12 @@ package fam.badger_ken.matchmaker;
  * a barony, county, town, duchy, kindgom, empire, etc.
  */
 public class Holding {
-  public String prefix; // e.g. 'b' for a barony
-  public String suffix; // e.g. 'xacitarxan' for the barony of xacitarxan
-  public String internalLabel;  // e.g. b_xacitarxan
+  public final String prefix; // e.g. 'b' for a barony
+  public final String suffix; // e.g. 'xacitarxan' for the barony of xacitarxan
+  public final String internalLabel;  // e.g. b_xacitarxan
   public String displayLabel;  // e.g. Xacitarxan
   
-  public HoldingLevel holdingLevel;
+  public final HoldingLevel holdingLevel;
 
   public Holding(String prefix, String suffix) {
     this.prefix = prefix;

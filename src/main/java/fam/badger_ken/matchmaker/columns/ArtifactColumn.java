@@ -2,7 +2,6 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.ArtifactsHandler;
-import fam.badger_ken.matchmaker.cell.GenderHandler;
 import fam.badger_ken.matchmaker.filter.HasArtifactFilter;
 import fam.badger_ken.matchmaker.widget.TwoPlusAnyComboBox;
 

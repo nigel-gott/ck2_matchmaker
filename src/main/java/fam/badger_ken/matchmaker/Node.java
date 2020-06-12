@@ -18,7 +18,7 @@ import java.util.Vector;
  * 
  */
 public class Node {
-  public String tag;
+  public final String tag;
   public String value;
   public Vector<Node> children;
   public Node parent;
@@ -39,7 +39,7 @@ public class Node {
 
   private void makeChildren() {
     if (children == null) {
-      children = new Vector<Node>();
+      children = new Vector<>();
     }
   }
 
@@ -56,7 +56,7 @@ public class Node {
 
   private void makeAttributes() {
     if (attributes == null) {
-      attributes = new HashMap<String, String>();
+      attributes = new HashMap<>();
     }
   }
 
@@ -71,8 +71,8 @@ public class Node {
     // is it already in the single-attrs? If so, make it multi:
     if (attributes.containsKey(key)) {
       if (repeatedAttributes == null)
-        repeatedAttributes = new HashMap<String, HashSet<String>>();
-      HashSet<String> vals = new HashSet<String>();
+        repeatedAttributes = new HashMap<>();
+      HashSet<String> vals = new HashSet<>();
       vals.add(attributes.get(key));
       vals.add(val);
       repeatedAttributes.put(key, vals);
@@ -83,8 +83,9 @@ public class Node {
     attributes.put(key, val);
   }
 
+  @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
   public String PrettyPrint() {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     buf.append("<" + tag);
     /*
      * for (Entry<String, String> entry: attributes.entrySet().entrySet()) {
@@ -130,7 +131,7 @@ public class Node {
     // its not in the repeated set, it might be in the singles set
     if (attributes == null || !attributes.containsKey(key))
       return null;
-    HashSet<String> wrap = new HashSet<String>();
+    HashSet<String> wrap = new HashSet<>();
     wrap.add(attributes.get(key));
     return wrap;
   }
@@ -169,8 +170,7 @@ public class Node {
     String sVal = findAttribute(attrName);
     if (sVal == null) return null;
     try {
-      double dVal = Double.parseDouble(sVal);
-      return dVal;
+      return Double.parseDouble(sVal);
     } catch (NumberFormatException e) {
       return null;
     }
@@ -205,7 +205,7 @@ public class Node {
    * @return the integer, null if it isn't.
    */
   public Integer tagAsInt() {
-    int provinceId = 0;
+    int provinceId;
     try {
       // province tags are just the numeric IDs
       provinceId = Integer.parseInt(tag);

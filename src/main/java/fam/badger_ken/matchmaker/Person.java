@@ -22,9 +22,9 @@ public class Person {
   public Integer fatherKey;
   public Integer motherKey;
   public Set<Integer> spouseKeys;
-  public Vector<Integer> attributes;
+  public final Vector<Integer> attributes;
   public Vector<Integer> adjustedAttributes = null;
-  public Vector<Integer> traits;
+  public final Vector<Integer> traits;
   public String religionLabel;
   public String cultureLabel;
   public Integer dynastyKey;
@@ -50,14 +50,13 @@ public class Person {
   private String displayDynasty = null;
   private String displayReligion = null;
   private String displayCulture = null;
-  private String displayTitle = null;
   private String displayHoldings = null;
   private String displayArtifacts = null;
 
   // holdings, most important one first
   private Set<Holding> holdings = null;
   // their title - set in a special pass
-  private Title title = Title.TITLE_NONE;
+  private final Title title = Title.TITLE_NONE;
 
    public Set<Artifact> artifacts = new HashSet<>();
   private boolean fatherAlive = false;
@@ -66,9 +65,9 @@ public class Person {
 
   public Person(Integer key) {
     this.key = key;
-    spouseKeys = new HashSet<Integer>();
-    attributes = new Vector<Integer>();
-    traits = new Vector<Integer>();
+    spouseKeys = new HashSet<>();
+    attributes = new Vector<>();
+    traits = new Vector<>();
   }
   public void addSpouse(Integer spouseKey) {
     spouseKeys.add(spouseKey);
@@ -118,7 +117,7 @@ public class Person {
   }
 
   // lazy eval.
-  public String getDisplayName(GameConfig gameConfig, SaveState saveState) {
+  public String getDisplayName(GameConfig gameConfig) {
     if (displayName == null) {
 
       String answer = birth_name;
@@ -137,7 +136,7 @@ public class Person {
   
   public String getHomeName(GameConfig gameConfig, SaveState saveState) {
     if (homeName == null) {
-      String label = null;
+      String label;
       // some people are hosted by themselves - so only look at the host
       // if there's no primary demesne.
       label = primaryDemesneLabel;
@@ -156,13 +155,13 @@ public class Person {
   }
 
   // lazy eval of the traits, as a single display string.
-  public String getDisplayTraits(GameConfig gameConfig, SaveState saveState) {
+  public String getDisplayTraits(GameConfig gameConfig) {
     if (displayTraits == null) {
-      if (traits == null || traits.size() == 0) {
+      if (traits.size() == 0) {
         return "";
       }
       // sort 'em alphabetically by their name.
-      List<String> names = new ArrayList<String>();
+      List<String> names = new ArrayList<>();
       for (Integer key : traits) {
         Trait trait = gameConfig.traits.get(key);
         names.add(trait == null ? ("#" + key) : trait.displayName);
@@ -186,7 +185,7 @@ public class Person {
     return displayTraits;
   }
   public int getNumTraits() {
-    return traits == null ? 0 : traits.size();
+    return traits.size();
   }
 
   public boolean isMarried() {
@@ -197,7 +196,7 @@ public class Person {
     return spouseKeys == null ? 0 : spouseKeys.size();
   }
 
-  public String getDisplayDynasty(GameConfig gameConfig, SaveState saveState) {
+  public String getDisplayDynasty(SaveState saveState) {
     if (displayDynasty == null) {
       if (dynastyKey == null) {
         displayDynasty = "??";
@@ -208,7 +207,7 @@ public class Person {
     }
     return displayDynasty;
   }
-  public String getDisplayReligion(GameConfig gameConfig, SaveState saveState) {
+  public String getDisplayReligion(GameConfig gameConfig) {
     if (displayReligion == null) {
       if (religionLabel == null) {
         displayReligion = "??";
@@ -219,7 +218,7 @@ public class Person {
     }
     return displayReligion;
   }
-  public String getDisplayCulture(GameConfig gameConfig, SaveState saveState) {
+  public String getDisplayCulture(GameConfig gameConfig) {
     if (displayCulture == null) {
       if (cultureLabel == null) {
         displayCulture = "??";
@@ -232,16 +231,14 @@ public class Person {
   }
   public Integer getAdjustedAttribute(GameConfig gameConfig, int ordinality) {
     if (adjustedAttributes == null) {
-      adjustedAttributes = new Vector<Integer>(attributes);
-      if (traits != null) {
-        for (Integer traitKey : traits) {
-          Trait trait = gameConfig.traits.get(traitKey);
-          if (trait != null && trait.impacts != null) {
-            for (AttributeImpact impact : trait.impacts) {
-              int attrOrdinality = impact.impactee.ordinality;
-              adjustedAttributes.set(attrOrdinality,
-                  adjustedAttributes.get(attrOrdinality) + impact.impact);
-            }
+      adjustedAttributes = new Vector<>(attributes);
+      for (Integer traitKey : traits) {
+        Trait trait = gameConfig.traits.get(traitKey);
+        if (trait != null) {
+          for (AttributeImpact impact : trait.impacts) {
+            int attrOrdinality = impact.impactee.ordinality;
+            adjustedAttributes.set(attrOrdinality,
+                adjustedAttributes.get(attrOrdinality) + impact.impact);
           }
         }
       }
@@ -252,7 +249,7 @@ public class Person {
     return primaryDemesneLabel != null;
   }
   public boolean hasTrait(Trait value) {
-    return (traits != null) && traits.contains(value.key);
+    return traits.contains(value.key);
   }
   public int getNumKids() {
     return numLivingFemaleChildren + numLivingMaleChildren;
@@ -289,9 +286,7 @@ public class Person {
   public Title getTitle() {
     return title;
   }
-  public void setTitle(Title t) {
-    this.title = t;
-  }
+
   public HoldingLevel getBestHoldingLevel() {
     Set<Holding> holdings = getHoldings();
     if (holdings == null) {

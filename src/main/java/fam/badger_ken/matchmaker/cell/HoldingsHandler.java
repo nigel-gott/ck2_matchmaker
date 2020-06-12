@@ -4,19 +4,18 @@
 package fam.badger_ken.matchmaker.cell;
 
 import java.awt.Component;
-import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
 import fam.badger_ken.matchmaker.Holding;
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
 public class HoldingsHandler implements CellHandler {
-  private Matchmaker matchmaker;
+  private final Matchmaker matchmaker;
 
   public HoldingsHandler(Matchmaker matchmaker) {
     this.matchmaker = matchmaker;
@@ -28,18 +27,17 @@ public class HoldingsHandler implements CellHandler {
     boolean has1 = arg1.getHoldings() != null && !arg1.getHoldings().isEmpty();
     if (!has0 && !has1) return 0;
     if (has0 && !has1) return -1;
-    if (!has0 && has1) return 1;
+    if (!has0) return 1;
     // they both have holdings - whoever has the highest-ranked holding wins.
     // if a tie, whoever has the most holdings wins.
     Iterator<Holding> iter0 = arg0.getHoldings().iterator();
     Iterator<Holding> iter1 = arg1.getHoldings().iterator();
     for (;;) {
-      if (!iter0.hasNext() && !iter0.hasNext()) return 0;
-      if (iter0.hasNext() && !iter1.hasNext()) return -1;
-      if (!iter0.hasNext() && iter1.hasNext()) return 1;
+      if (!iter0.hasNext()) return 0;
+      if (!iter1.hasNext()) return -1;
       Holding holding0 = iter0.next();
       Holding holding1 = iter1.next();
-      int delta = holding0.holdingLevel.compareTo(holding1.holdingLevel);
+      int delta = Objects.requireNonNull(holding0.holdingLevel).compareTo(Objects.requireNonNull(holding1.holdingLevel));
       if (delta != 0) return delta;
     }  // keep going
   }

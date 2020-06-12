@@ -4,17 +4,15 @@
 package fam.badger_ken.matchmaker.cell;
 
 import java.awt.Component;
-import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
 
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.Person;
 
 public class TraitsHandler implements CellHandler {
-  Matchmaker matchmaker;
+  final Matchmaker matchmaker;
   public TraitsHandler(Matchmaker matchmaker) {
     this.matchmaker = matchmaker;
   }
@@ -33,7 +31,7 @@ public class TraitsHandler implements CellHandler {
       boolean isSelected, boolean hasFocus, int row, int column) {
     Person person = (Person) value;
     if (person == null) return null;
-    String val = person.getDisplayTraits(matchmaker.gameConfig, matchmaker.saveState);
+    String val = person.getDisplayTraits(matchmaker.gameConfig);
     return new JLabel(val);
   }
 

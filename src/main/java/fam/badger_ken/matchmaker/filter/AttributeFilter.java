@@ -17,10 +17,10 @@ import fam.badger_ken.matchmaker.Util;
  * The 'AttributeFilter' filters for either min or max value of an attribute.
  */
 public class AttributeFilter implements Filterer {
-  private Matchmaker matchmaker;
-  private ResultMaker resultMaker;
-  private boolean isMinFilter;
-  private int ordinality;  // of the attribute
+  private final Matchmaker matchmaker;
+  private final ResultMaker resultMaker;
+  private final boolean isMinFilter;
+  private final int ordinality;  // of the attribute
 
   private boolean onNow = false;
   private Integer value = null;

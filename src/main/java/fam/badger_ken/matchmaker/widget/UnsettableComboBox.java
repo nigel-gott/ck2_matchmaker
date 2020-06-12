@@ -4,8 +4,6 @@
 package fam.badger_ken.matchmaker.widget;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -21,7 +19,7 @@ import fam.badger_ken.matchmaker.Filterer;
  * b) its contents are hooked up to notify the given filter when changed.
  * c) it supports the Unsettable interface, by selecting the 0th item.
  */
-public class UnsettableComboBox extends JComboBox implements Unsettable {
+public class UnsettableComboBox extends JComboBox<AnyDropdownable> implements Unsettable {
   private static final long serialVersionUID = 3267876461751965919L;
   private Filterer filterer = null;
 
@@ -48,14 +46,12 @@ public class UnsettableComboBox extends JComboBox implements Unsettable {
    */
   public void populate(Vector<AnyDropdownable> originalItems, final Filterer filterer) {
     this.filterer = filterer;
-    Vector<AnyDropdownable> myItems = new Vector<AnyDropdownable>(originalItems);
-    DefaultComboBoxModel newModel = new DefaultComboBoxModel(myItems);
+    Vector<AnyDropdownable> myItems = new Vector<>(originalItems);
+    DefaultComboBoxModel<AnyDropdownable> newModel = new DefaultComboBoxModel<>(myItems);
     setModel(newModel);
-    this.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
-        if (filterer != null) {
-          filterer.notify((JComponent) arg0.getSource(), (JComponent) arg0.getSource());
-        }
+    this.addActionListener(arg0 -> {
+      if (filterer != null) {
+        filterer.notify((JComponent) arg0.getSource(), (JComponent) arg0.getSource());
       }
     });
   }              

@@ -13,7 +13,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -38,23 +37,23 @@ public class SwingGui implements ResultMaker {
 
     private static final String INSTALL_DIR_PREF_KEY = "install_dir";
     private JFrame frmCkMatchmaker;
-    JPanel filterPanel = new JPanel();
+    final JPanel filterPanel = new JPanel();
     private String installationDirName = null;
     private File saveGameFile = null;
-    JButton doLoadButton = new JButton("  Load  ");
-    private Matchmaker matchmaker = new Matchmaker();
-    private Color warningColor = new Color(255, 200, 200);
-    private Color inProgressColor = new Color(255, 255, 100);
-    private Color clickMeColor = new Color(100, 255, 100);
+    final JButton doLoadButton = new JButton("  Load  ");
+    private final Matchmaker matchmaker = new Matchmaker();
+    private final Color warningColor = new Color(255, 200, 200);
+    private final Color inProgressColor = new Color(255, 255, 100);
+    private final Color clickMeColor = new Color(100, 255, 100);
     // keep the choosers around so their state stays.
-    JFileChooser installationDirChooser = new JFileChooser();
-    JFileChooser saveGameFileChooser = new JFileChooser();
+    final JFileChooser installationDirChooser = new JFileChooser();
+    final JFileChooser saveGameFileChooser = new JFileChooser();
     private ViewTable viewTable;
     private ViewTableModel viewTableModel;
-    JPanel viewPanel = new JPanel();
-    JLabel viewCaption = new JLabel("-- Results --");
+    final JPanel viewPanel = new JPanel();
+    final JLabel viewCaption = new JLabel("-- Results --");
 
-    private JLabel numFiltersLabel = new JLabel(" 0 ");
+    private final JLabel numFiltersLabel = new JLabel(" 0 ");
     public static final Color FILTER_OFF_COLOR = Color.WHITE;
     public static final Color FILTER_ON_COLOR = new Color(204, 255, 255);
     private static final String SAVE_GAME_FILE_PREF_KEY = "save_game_file";
@@ -62,14 +61,14 @@ public class SwingGui implements ResultMaker {
     private static final String RELIGIOUS_GROUP_PREF_KEY = "religious_group_to_load";
     // have we sized things yet?
     protected boolean firstTime = true;
-    JButton resetButton = new JButton("Reset");
+    final JButton resetButton = new JButton("Reset");
     private boolean resultMakerIsEnabled = true;
-    Set<String> modsToConsult = new HashSet<String>();
+    final Set<String> modsToConsult = new HashSet<>();
     String traitsDir;
-    JButton traitsDumpButton = new JButton("Traits info...");
-    JButton exportAllButton = new JButton("export ALL");
+    final JButton traitsDumpButton = new JButton("Traits info...");
+    final JButton exportAllButton = new JButton("export ALL");
     // my preferences - remember install dir, save game.
-    Preferences prefs = Preferences.userNodeForPackage(Matchmaker.class);
+    final Preferences prefs = Preferences.userNodeForPackage(Matchmaker.class);
 
     final List<Column> columns =
             new ArrayList<>(Arrays.asList(
@@ -325,8 +324,6 @@ public class SwingGui implements ResultMaker {
                         int answer = JOptionPane.showConfirmDialog(frame, message);
                         if (answer == JOptionPane.YES_OPTION) {
                             return modBase;
-                        } else if (answer == JOptionPane.NO_OPTION) {
-                            continue;
                         }
                     }
                 }
@@ -474,7 +471,7 @@ public class SwingGui implements ResultMaker {
         String fName = prefs.get(SAVE_GAME_FILE_PREF_KEY, null);
         if (fName != null) {
             File saveFil = new File(fName);
-            if (saveFil != null && saveFil.canRead()) {
+            if (saveFil.canRead()) {
                 onSaveGameFileSet(saveFil);
             }
         }
@@ -528,15 +525,10 @@ public class SwingGui implements ResultMaker {
             return;
         }
         final File dirFile = new File(rootDir);
-        if (dirFile == null || !dirFile.canRead() || !dirFile.isDirectory()) {
+        if (!dirFile.canRead() || !dirFile.isDirectory()) {
             return;
         }
-        File[] files = dirFile.listFiles(new FileFilter() {
-                                             @Override
-                                             public boolean accept(File arg0) {
-                                                 return arg0.isDirectory() && !arg0.equals(dirFile);
-                                             }
-                                         }
+        File[] files = dirFile.listFiles(arg0 -> arg0.isDirectory() && !arg0.equals(dirFile)
         );
         if (files == null) return;
         for (File fil : files) {
@@ -555,8 +547,7 @@ public class SwingGui implements ResultMaker {
      * @param helper specifies the semantics
      */
     public static void populateDropdownPane(JComponent panel, DropdownMakerHelper helper, Matchmaker matchmaker) {
-        Vector<AnyDropdownable> originalItems = new Vector<AnyDropdownable>();
-        originalItems.addAll(helper.getOriginalItems());
+        Vector<AnyDropdownable> originalItems = new Vector<>(helper.getOriginalItems());
         originalItems.add(new AnyItemForDropdown());
 
         originalItems.sort((arg0, arg1) -> {
