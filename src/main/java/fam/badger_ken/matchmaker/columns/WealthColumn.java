@@ -13,7 +13,7 @@ import java.util.Optional;
 public class WealthColumn extends Column {
 
     public WealthColumn() {
-        super("Wealth", new WealthHandler(), 3 * SHORT_COLUMN_WIDTH);
+        super("Wealth", new WealthHandler(), WealthFilter.class, 3 * SHORT_COLUMN_WIDTH);
     }
 
     @Override

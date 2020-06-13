@@ -13,7 +13,7 @@ import java.util.Optional;
 public class GenderColumn extends Column {
 
     public GenderColumn() {
-        super("Gender", new GenderHandler(), SHORT_COLUMN_WIDTH);
+        super("Gender", new GenderHandler(), GenderFilter.class, SHORT_COLUMN_WIDTH);
     }
 
     @Override

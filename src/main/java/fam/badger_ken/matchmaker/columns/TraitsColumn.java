@@ -21,7 +21,7 @@ import static fam.badger_ken.matchmaker.SwingGui.populateDropdownPane;
 public class TraitsColumn extends Column {
 
     public TraitsColumn(Matchmaker matchmaker) {
-        super("Traits", new TraitsHandler(matchmaker));
+        super("Traits", new TraitsHandler(matchmaker), TraitFilter.class);
     }
 
     @Override

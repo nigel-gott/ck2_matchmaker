@@ -20,7 +20,7 @@ import static fam.badger_ken.matchmaker.SwingGui.populateDropdownPane;
 public class CultureColumn extends Column {
 
     public CultureColumn(Matchmaker matchmaker) {
-        super("Culture", new CultureHandler(matchmaker));
+        super("Culture", new CultureHandler(matchmaker), CultureFilter.class);
     }
 
     @Override

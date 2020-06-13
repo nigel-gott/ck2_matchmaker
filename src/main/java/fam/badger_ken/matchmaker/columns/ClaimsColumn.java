@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ClaimsColumn extends Column {
 
     public ClaimsColumn() {
-        super("Claims", new ClaimsHandler(), SHORT_COLUMN_WIDTH);
+        super("Claims", new ClaimsHandler(), ClaimsFilter.class, SHORT_COLUMN_WIDTH);
     }
 
     @Override

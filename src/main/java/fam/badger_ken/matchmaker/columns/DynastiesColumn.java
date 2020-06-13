@@ -18,7 +18,7 @@ import static fam.badger_ken.matchmaker.SwingGui.mustNotHaveRow;
 public class DynastiesColumn extends Column {
 
     public DynastiesColumn(Matchmaker matchmaker) {
-        super("Dynasties", new DynastyHandler(matchmaker));
+        super("Dynasties", new DynastyHandler(matchmaker), DynastyFilter.class);
     }
 
     @Override

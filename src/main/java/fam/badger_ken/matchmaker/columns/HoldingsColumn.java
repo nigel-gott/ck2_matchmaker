@@ -16,7 +16,7 @@ import java.util.Vector;
 public class HoldingsColumn extends Column {
 
     public HoldingsColumn(Matchmaker matchmaker) {
-        super("Holdings", new HoldingsHandler(matchmaker));
+        super("Holdings", new HoldingsHandler(matchmaker), HoldingLevelFilter.class);
     }
 
     @Override

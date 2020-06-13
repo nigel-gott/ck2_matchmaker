@@ -13,7 +13,7 @@ import java.util.Optional;
 public class KidsColumn extends Column {
 
     public KidsColumn() {
-        super("Kids", new KidsHandler(), SHORT_COLUMN_WIDTH);
+        super("Kids", new KidsHandler(), KidsFilter.class, SHORT_COLUMN_WIDTH);
     }
 
     @Override

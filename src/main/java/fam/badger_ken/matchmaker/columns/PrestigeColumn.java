@@ -13,7 +13,7 @@ import java.util.Optional;
 public class PrestigeColumn extends Column {
 
     public PrestigeColumn() {
-        super("Prestige", new PrestigeHandler(), 3 * SHORT_COLUMN_WIDTH);
+        super("Prestige", new PrestigeHandler(), PrestigeFilter.class, 3 * SHORT_COLUMN_WIDTH);
     }
 
     @Override

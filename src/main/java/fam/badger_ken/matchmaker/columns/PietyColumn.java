@@ -13,7 +13,7 @@ import java.util.Optional;
 public class PietyColumn extends Column {
 
     public PietyColumn() {
-        super("Piety", new PietyHandler(), 3 * SHORT_COLUMN_WIDTH);
+        super("Piety", new PietyHandler(), PietyFilter.class, 3 * SHORT_COLUMN_WIDTH);
     }
 
     @Override

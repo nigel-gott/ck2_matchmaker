@@ -2,6 +2,7 @@ package fam.badger_ken.matchmaker.columns;
 
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.AttributeHandler;
+import fam.badger_ken.matchmaker.filter.AttributeFilter;
 
 import java.awt.*;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public class AttributeColumn extends Column {
     public final String attributeName;
 
     public AttributeColumn(String attributeName, Matchmaker matchmaker, int attributeOrd) {
-        super(attributeName, new AttributeHandler(matchmaker, attributeOrd), 65);
+        super(attributeName, new AttributeHandler(matchmaker, attributeOrd), AttributeFilter.class, 65);
         this.attributeOrd = attributeOrd;
         this.attributeName = attributeName;
     }

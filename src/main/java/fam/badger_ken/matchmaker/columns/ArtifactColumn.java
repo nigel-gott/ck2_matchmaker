@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ArtifactColumn extends Column {
 
     public ArtifactColumn() {
-        super("Artifacts", new ArtifactsHandler(), 3 * SHORT_COLUMN_WIDTH);
+        super("Artifacts", new ArtifactsHandler(), HasArtifactFilter.class, 3 * SHORT_COLUMN_WIDTH);
     }
 
     @Override

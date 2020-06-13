@@ -13,7 +13,7 @@ import java.util.Optional;
 public class AgeColumn extends Column {
 
     public AgeColumn() {
-        super("Age", new AgeHandler(), SHORT_COLUMN_WIDTH);
+        super("Age", new AgeHandler(), AgeFilter.class, SHORT_COLUMN_WIDTH);
     }
 
     @Override

@@ -3,13 +3,7 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -71,26 +65,7 @@ public class SwingGui implements ResultMaker {
     // my preferences - remember install dir, save game.
     final Preferences prefs = Preferences.userNodeForPackage(Matchmaker.class);
 
-    final List<Column> columns =
-            new ArrayList<>(Arrays.asList(
-                    new AgeColumn(),
-                    new GenderColumn(),
-                    new SpouseColumn(),
-                    new KidsColumn(),
-                    new NameColumn(matchmaker),
-                    new DynastiesColumn(matchmaker),
-                    new HoldingsColumn(matchmaker),
-                    new ClaimsColumn(),
-                    new PietyColumn(),
-                    new WealthColumn(),
-                    new PrestigeColumn(),
-                    new ArtifactColumn(),
-                    new TraitsColumn(matchmaker),
-                    new ReligionColumn(matchmaker),
-                    new CultureColumn(matchmaker),
-                    new HomeColumn(matchmaker),
-                    new HealthColumn()
-            ));
+    final Columns columns = new Columns(matchmaker);
 
     private void repopulateColumns() {
         columns.forEach(Column::repopulate);
@@ -147,13 +122,6 @@ public class SwingGui implements ResultMaker {
         viewTable.setRowHeights();
     }
 
-    private void addAttributeColumns() {
-        final List<String> attributes = Arrays.asList("Diplomacy", "Martial", "Stewardship", "Intrigue", "Learning");
-        for (int i = 0; i < attributes.size(); i++) {
-            this.columns.add(new AttributeColumn(attributes.get(i), matchmaker, i));
-        }
-
-    }
 
     /**
      * Initialize the contents of the frame.
@@ -161,7 +129,7 @@ public class SwingGui implements ResultMaker {
     private void initialize() {
 
         final ResultMaker resultMaker = this;
-        addAttributeColumns();
+        columns.registerChangeListener(resultMaker::makeResults);
 
 
 //
@@ -417,15 +385,20 @@ public class SwingGui implements ResultMaker {
         filterHeaderPanel.add(resetButton);
         resetButton.setEnabled(false);
 
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        DnDTabbedPane tabbedPane = new DnDTabbedPane(JTabbedPane.TOP);
         filterPanel.add(tabbedPane);
 
 
         for (Column column : columns) {
             Optional<Component> tab = column.setupFiltersAndMakeTab(matchmaker, resultMaker);
-            tab.ifPresent(presentTab -> tabbedPane.addTab(column.getColumnName(), presentTab));
+            addColumnTab(tabbedPane, column.getColumnName(), tab);
         }
-        tabbedPane.addTab("Attributes", null, makeAttributesPanel(resultMaker), null);
+        addTab(tabbedPane, "Attributes", makeAttributesPanel(resultMaker), () -> {
+
+        });
+
+        setupAddTabTab(resultMaker, tabbedPane);
+        columns.registerChangeListener(() -> setupAddTabTab(resultMaker, tabbedPane));
 
         frmCkMatchmaker.getContentPane().add(viewPanel);
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -481,6 +454,93 @@ public class SwingGui implements ResultMaker {
                 onSaveGameFileSet(saveFil);
                 saveGameFileButton.setText(CHANGE);
                 saveGameFileButton.setBackground(Color.GREEN);
+            }
+        }
+    }
+
+    private void setupAddTabTab(ResultMaker resultMaker, JTabbedPane tabbedPane) {
+        removeTabWithTitle(tabbedPane, "+");
+        if (columns.hasSomeHidden()) {
+            JPanel addFilterPanel = makeNewTabPanel(resultMaker, tabbedPane);
+            tabbedPane.addTab("+", addFilterPanel);
+        }
+    }
+
+    private void updateFilterComboBox(JComboBox<String> box) {
+        box.removeAllItems();
+        for (Column column : columns.removedColumns()) {
+            box.addItem(column.getColumnName());
+        }
+    }
+
+    private JPanel makeNewTabPanel(ResultMaker resultMaker, JTabbedPane tabbedPane) {
+        JPanel addFilterPanel = new JPanel();
+        addFilterPanel.setLayout(new BoxLayout(addFilterPanel, BoxLayout.Y_AXIS));
+        JComboBox<String> newFilterSelector = new JComboBox<>();
+        updateFilterComboBox(newFilterSelector);
+        columns.registerChangeListener(() -> updateFilterComboBox(newFilterSelector));
+        newFilterSelector.setOpaque(true);
+        newFilterSelector.setPreferredSize(new Dimension(1000, 50));
+        newFilterSelector.setMaximumSize(new Dimension(1000, 75));
+        addFilterPanel.add(newFilterSelector);
+        JButton button = new JButton("Add Tab");
+        button.addActionListener(actionEvent -> {
+            Object item = newFilterSelector.getSelectedItem();
+            if (item instanceof String) {
+                String title = (String) item;
+                Optional<Component> c = columns.addColumn(title, resultMaker);
+                addColumnTab(tabbedPane, title, c);
+            }
+        });
+        addFilterPanel.add(button);
+        return addFilterPanel;
+    }
+
+    private void addColumnTab(JTabbedPane tabbedPane, String title, Optional<Component> c) {
+        c.ifPresent(component -> addTab(tabbedPane, title, component, () -> columns.removeColumn(title)));
+    }
+
+    private void addTab(JTabbedPane tabbedPane, String title, Component tabBody, Runnable closeHandler) {
+        if(tabbedPane.getTabCount() > 0 && tabbedPane.getTitleAt(tabbedPane.getTabCount() - 1).equals("+")){
+            tabbedPane.insertTab(title, null, tabBody, null, tabbedPane.getTabCount()-1);
+            tabbedPane.setSelectedIndex(tabbedPane.getTabCount()-1);
+        } else {
+            tabbedPane.addTab(title, tabBody);
+        }
+        int index = tabbedPane.indexOfTab(title);
+        JPanel pnlTab = new JPanel(new GridBagLayout());
+        pnlTab.setOpaque(false);
+        JLabel lblTitle = new JLabel(title);
+        JButton btnClose = new JButton("x");
+        btnClose.setMargin(new Insets(0, 1, 0, 1));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(1, 1, 1, 1);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+
+        pnlTab.add(lblTitle, gbc);
+
+        gbc.gridx++;
+        gbc.weightx = 0;
+        pnlTab.add(btnClose, gbc);
+
+        tabbedPane.setTabComponentAt(index, pnlTab);
+
+        btnClose.addActionListener(actionEvent -> {
+            removeTabWithTitle(tabbedPane, title);
+            btnClose.removeAll();
+            closeHandler.run();
+        });
+    }
+
+    private void removeTabWithTitle(JTabbedPane tabbedPane, String title) {
+        for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+            String tabTitle = tabbedPane.getTitleAt(i);
+            if (tabTitle.equals(title)) {
+                tabbedPane.remove(i);
+                break;
             }
         }
     }

@@ -3,6 +3,7 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
+import fam.badger_ken.matchmaker.columns.Columns;
 import fam.badger_ken.matchmaker.filter.FiltererFilter;
 
 import java.io.*;
@@ -286,7 +287,7 @@ public class Matchmaker implements ParserPruner {
 
     private final static String SEP = ",";
 
-    private void writeWinners(BufferedWriter bw, boolean showAll, List<Column> columns) throws IOException {
+    private void writeWinners(BufferedWriter bw, boolean showAll, Columns columns) throws IOException {
         if (winners == null) {
             return;
         }

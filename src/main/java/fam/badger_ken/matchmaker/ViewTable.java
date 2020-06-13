@@ -3,6 +3,8 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
+import fam.badger_ken.matchmaker.columns.Columns;
+
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -16,11 +18,15 @@ public class ViewTable extends JTable {
   private static final long serialVersionUID = -5668144084110568712L;
   private static final int DEFAULT_HEIGHT_PER_ROW = 20;
   private static final int TRAITS_PER_ROW = 4;
-  private final List<Column> columns;
+  private final Columns columns;
 
   public ViewTable(ViewTableModel viewTableModel) {
     super(viewTableModel);
     this.columns = viewTableModel.getColumns();
+    this.columns.registerChangeListener(() -> {
+      this.setCellRenderers();
+      this.setColumnWidths();
+    });
   }
 
   public void setRowHeights() {
@@ -40,17 +46,6 @@ public class ViewTable extends JTable {
     }
   }
 
-  /*
-   * TO ADD A NEW COLUMN TO THE GUI:
-   * 1) update setCellRenderers
-   * 2) update setColumnWidths
-   * 3) update ViewTableModel.columnNames
-   * 4) update ViewTableModel.setColumnComparators
-   * 5) update Matchmaker.writeWinners() (CSV export)
-   * 
-   * someday there should be a class per column that wraps all this.
-   */
-
   public void setCellRenderers() {
     TableColumnModel columnModel = this.getColumnModel();
 
@@ -58,28 +53,7 @@ public class ViewTable extends JTable {
       final Column column = columns.get(i);
       columnModel.getColumn(i).setCellRenderer(column.getCellRenderer());
     }
-//
-//    columnModel.getColumn(column++).setCellRenderer(new AgeHandler());
-//    columnModel.getColumn(column++).setCellRenderer(new GenderHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new MarriageHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new KidsHandler());
-//    columnModel.getColumn(column++).setCellRenderer(new NameHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new DynastyHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new HoldingsHandler(matchmaker));
-//    //columnModel.getColumn(column++).setCellRenderer(new RulerHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new ClaimsHandler());
-//    for (int j = 0; j < 5; j++) {
-//      columnModel.getColumn(column++).setCellRenderer(new AttributeHandler(matchmaker, j));
-//    }
-//    columnModel.getColumn(column++).setCellRenderer(new TraitsHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new ReligionHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new CultureHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new PietyHandler());
-//    columnModel.getColumn(column++).setCellRenderer(new WealthHandler());
-//    columnModel.getColumn(column++).setCellRenderer(new HomeHandler(matchmaker));
-//    columnModel.getColumn(column++).setCellRenderer(new ArtifactsHandler(matchmaker));
-
-  }	
+  }
 
   public void setColumnWidths() {
     for (int i = 0; i < columns.size(); i++) {
@@ -87,6 +61,5 @@ public class ViewTable extends JTable {
       int finalI = i;
       column.getMaxColumnWidth().ifPresent((x) -> columnModel.getColumn(finalI).setMaxWidth(x));
     }
-//    //columns.getColumn(column++).setMaxWidth(shortWidth);  // ruler?
   }
 }

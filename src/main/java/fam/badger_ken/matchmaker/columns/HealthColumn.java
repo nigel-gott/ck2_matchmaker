@@ -13,7 +13,7 @@ import java.util.Optional;
 public class HealthColumn extends Column {
 
     public HealthColumn() {
-        super("Health", new HealthHandler(), SHORT_COLUMN_WIDTH);
+        super("Health", new HealthHandler(), HealthHandler.class, SHORT_COLUMN_WIDTH);
     }
 
     @Override

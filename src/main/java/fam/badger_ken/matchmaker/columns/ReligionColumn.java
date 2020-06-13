@@ -20,7 +20,7 @@ import static fam.badger_ken.matchmaker.SwingGui.populateDropdownPane;
 public class ReligionColumn extends Column {
 
     public ReligionColumn(Matchmaker matchmaker) {
-        super("Religion", new ReligionHandler(matchmaker));
+        super("Religion", new ReligionHandler(matchmaker), ReligionFilter.class);
     }
 
     @Override

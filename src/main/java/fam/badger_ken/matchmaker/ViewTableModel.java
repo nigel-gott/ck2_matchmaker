@@ -3,9 +3,12 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
+import fam.badger_ken.matchmaker.columns.Columns;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This handles all the data in the table,
@@ -14,10 +17,11 @@ import java.util.List;
  */
 public class ViewTableModel extends AbstractTableModel {
 
-  private final List<Column> columns;
+  private final Columns columns;
 
-  public ViewTableModel(final List<Column> columns) {
+  public ViewTableModel(final Columns columns) {
     this.columns = columns;
+    columns.registerChangeListener(this::fireTableStructureChanged);
   }
 
   /**
@@ -82,30 +86,10 @@ public class ViewTableModel extends AbstractTableModel {
     for (int i = 0; i < this.columns.size(); i++) {
       sorter.setComparator(i, this.columns.get(i).getComparator());
     }
-//    int column = 0;
-//    sorter.setComparator(column++, new AgeHandler());
-//    sorter.setComparator(column++, new GenderHandler(matchmaker));
-//    sorter.setComparator(column++, new MarriageHandler(matchmaker));
-//    sorter.setComparator(column++, new KidsHandler());
-//    sorter.setComparator(column++, new NameHandler(matchmaker));
-//    sorter.setComparator(column++, new DynastyHandler(matchmaker));
-//    sorter.setComparator(column++, new HoldingsHandler(matchmaker));
-//    //sorter.setComparator(column++, new RulerHandler(matchmaker));
-//    sorter.setComparator(column++, new ClaimsHandler());
-//    for (int j = 0; j < GameConfig.NUM_ATTRIBUTES; j++) {
-//      sorter.setComparator(column++, new AttributeHandler(matchmaker, j));
-//    }
-//    sorter.setComparator(column++, new TraitsHandler(matchmaker));
-//    sorter.setComparator(column++, new ReligionHandler(matchmaker));
-//    sorter.setComparator(column++, new CultureHandler(matchmaker));
-//    sorter.setComparator(column++, new PietyHandler());
-//    sorter.setComparator(column++, new WealthHandler());
-//    sorter.setComparator(column++, new HomeHandler(matchmaker));
-//    sorter.setComparator(column++, new ArtifactsHandler(matchmaker));
-
   }
 
-  public List<Column> getColumns() {
+
+  public Columns getColumns() {
     return this.columns;
   }
 }

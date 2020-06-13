@@ -10,7 +10,7 @@ import java.util.Optional;
 public class HomeColumn extends Column {
 
     public HomeColumn(Matchmaker matchmaker) {
-        super("Home", new HomeHandler(matchmaker));
+        super("Home", new HomeHandler(matchmaker), null);
     }
 
     @Override

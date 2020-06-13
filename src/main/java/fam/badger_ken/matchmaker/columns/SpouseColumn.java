@@ -13,7 +13,7 @@ import java.util.Optional;
 public class SpouseColumn extends Column {
 
     public SpouseColumn() {
-        super("Spouses", new MarriageHandler(), SHORT_COLUMN_WIDTH);
+        super("Spouses", new MarriageHandler(), SpousesFilter.class, SHORT_COLUMN_WIDTH);
     }
 
     @Override
