@@ -22,7 +22,7 @@ public class WealthColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final WealthFilter minWealthFilter = new WealthFilter(resultMaker, true);
         final WealthFilter maxWealthFilter = new WealthFilter(resultMaker, false);
         matchmaker.addFilter(minWealthFilter);
@@ -49,7 +49,7 @@ public class WealthColumn extends Column {
         panel_8.add(maxWealthField);
 
 
-        return Optional.of(pietyFilterPanel);
+        return pietyFilterPanel;
     }
 
 

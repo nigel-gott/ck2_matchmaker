@@ -30,7 +30,7 @@ public class CultureColumn extends Column {
 
     // See fam.badger_ken.matchmaker.SwingGui.initialize
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
 
         JPanel cultureFilterPanel = new JPanel();
         cultureFilterPanel.addComponentListener(new ComponentAdapter() {
@@ -83,7 +83,7 @@ public class CultureColumn extends Column {
             cultureNoPanel.add(new UnsettableComboBox());
         }
 
-        return Optional.of(cultureFilterPanel);
+        return cultureFilterPanel;
     }
 
 

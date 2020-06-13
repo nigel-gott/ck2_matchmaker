@@ -29,7 +29,7 @@ public class ReligionColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         JPanel religionFilterPanel = new JPanel();
         religionFilterPanel.addComponentListener(new ComponentAdapter() {
             @Override
@@ -80,7 +80,7 @@ public class ReligionColumn extends Column {
         }
 
 
-        return Optional.of(religionFilterPanel);
+        return religionFilterPanel;
     }
 
 

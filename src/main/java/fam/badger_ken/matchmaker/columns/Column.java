@@ -1,5 +1,6 @@
-package fam.badger_ken.matchmaker;
+package fam.badger_ken.matchmaker.columns;
 
+import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.CellHandler;
 
 import javax.swing.table.TableCellRenderer;
@@ -54,7 +55,7 @@ public abstract class Column {
     public abstract String convertPersonToCsv(Person winner, GameConfig gameConfig, SaveState saveState);
 
 
-    public abstract Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker);
+    public abstract Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker);
 
     public void removed(Matchmaker matchmaker) {
         this.removed = true;
@@ -71,7 +72,7 @@ public abstract class Column {
         return !removed;
     }
 
-    public Optional<Component> added(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component added(Matchmaker matchmaker, ResultMaker resultMaker) {
         this.removed = false;
         return this.setupFiltersAndMakeTab(matchmaker, resultMaker);
     }

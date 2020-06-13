@@ -3,7 +3,9 @@ package fam.badger_ken.matchmaker.columns;
 import fam.badger_ken.matchmaker.*;
 import fam.badger_ken.matchmaker.cell.AttributeHandler;
 import fam.badger_ken.matchmaker.filter.AttributeFilter;
+import fam.badger_ken.matchmaker.widget.UnsettableTextField;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Optional;
 
@@ -24,14 +26,33 @@ public class AttributeColumn extends Column {
         return String.valueOf(winner.getAdjustedAttribute(gameConfig, attributeOrd));
     }
 
-    // Setup by manual methods in SwingGui as we have one tab for all 5 attributes hence we can't make a tab for each
-    // one in here
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+        final AttributeFilter minFilter = new AttributeFilter(resultMaker, matchmaker, attributeOrd, true);
+        matchmaker.addFilter(minFilter);
+        final AttributeFilter maxFilter = new AttributeFilter(resultMaker, matchmaker, attributeOrd, false);
+        matchmaker.addFilter(maxFilter);
+        JPanel attributePanel = new JPanel();
+        FlowLayout flowLayout_4 = (FlowLayout) attributePanel.getLayout();
+        flowLayout_4.setAlignment(FlowLayout.LEFT);
 
+        JLabel attributeLabel = new JLabel(attributeName + "...");
+        attributeLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+        attributePanel.add(attributeLabel);
 
+        JLabel label_7 = new JLabel("min: ");
+        attributePanel.add(label_7);
 
-        return Optional.empty();
+        UnsettableTextField minFilterField = new UnsettableTextField(3, minFilter);
+        attributePanel.add(minFilterField);
+
+        JLabel label_8 = new JLabel(" max: ");
+        attributePanel.add(label_8);
+
+        UnsettableTextField maxFilterField = new UnsettableTextField(3, maxFilter);
+        attributePanel.add(maxFilterField);
+
+        return attributePanel;
     }
 
 

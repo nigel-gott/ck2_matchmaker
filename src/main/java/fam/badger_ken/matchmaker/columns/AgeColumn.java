@@ -22,7 +22,7 @@ public class AgeColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final AgeFilter minAgeFilter = new AgeFilter(resultMaker, true);
         matchmaker.addFilter(minAgeFilter);
         final AgeFilter maxAgeFilter = new AgeFilter(resultMaker, false);
@@ -50,7 +50,7 @@ public class AgeColumn extends Column {
 
         UnsettableTextField maxAgeField = new UnsettableTextField(3, maxAgeFilter);
         maxAgePanel.add(maxAgeField);
-        return Optional.of(ageFilterPanel);
+        return ageFilterPanel;
     }
 
 

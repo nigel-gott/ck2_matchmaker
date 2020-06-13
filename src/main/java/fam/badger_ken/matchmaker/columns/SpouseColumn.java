@@ -22,7 +22,7 @@ public class SpouseColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final SpousesFilter minSpousesFilter = new SpousesFilter(resultMaker, true);
         final SpousesFilter maxSpousesFilter = new SpousesFilter(resultMaker, false);
         matchmaker.addFilter(minSpousesFilter);
@@ -52,7 +52,7 @@ public class SpouseColumn extends Column {
         UnsettableTextField maxSpousesField = new UnsettableTextField(3, maxSpousesFilter);
         maxSpousesPanel.add(maxSpousesField);
 
-        return Optional.of(spouseFilterPanel);
+        return spouseFilterPanel;
     }
 
 

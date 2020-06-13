@@ -31,7 +31,7 @@ public class TraitsColumn extends Column {
 
     // See fam.badger_ken.matchmaker.SwingGui.initialize
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
 
         JPanel traitsFilterPanel = new JPanel();
         traitsFilterPanel.addComponentListener(new ComponentAdapter() {
@@ -87,7 +87,7 @@ public class TraitsColumn extends Column {
             traitsNoPanel.add(new UnsettableComboBox());
         }
 
-        return Optional.of(traitsFilterPanel);
+        return traitsFilterPanel;
     }
 
 

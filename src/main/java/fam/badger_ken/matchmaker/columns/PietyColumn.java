@@ -22,7 +22,7 @@ public class PietyColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final PietyFilter minPietyFilter = new PietyFilter(resultMaker, true);
         final PietyFilter maxPietyFilter = new PietyFilter(resultMaker, false);
         matchmaker.addFilter(minPietyFilter);
@@ -49,7 +49,7 @@ public class PietyColumn extends Column {
         panel_8.add(maxPietyField);
 
 
-        return Optional.of(pietyFilterPanel);
+        return pietyFilterPanel;
     }
 
 

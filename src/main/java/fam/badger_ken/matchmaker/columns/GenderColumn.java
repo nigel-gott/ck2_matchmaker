@@ -22,14 +22,14 @@ public class GenderColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final GenderFilter genderFilter = new GenderFilter(resultMaker);
         matchmaker.addFilter(genderFilter);
         JPanel genderFilterPanel = new JPanel();
 
         TwoPlusAnyComboBox genderComboBox = new TwoPlusAnyComboBox("Male", "Female", genderFilter);
         genderFilterPanel.add(genderComboBox);
-        return Optional.of(genderFilterPanel);
+        return genderFilterPanel;
     }
 
 

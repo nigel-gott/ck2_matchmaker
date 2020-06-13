@@ -3,13 +3,12 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
+import fam.badger_ken.matchmaker.columns.Column;
 import fam.badger_ken.matchmaker.columns.Columns;
 
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
-import java.util.List;
 
 /**
  * The table that shows the winners.

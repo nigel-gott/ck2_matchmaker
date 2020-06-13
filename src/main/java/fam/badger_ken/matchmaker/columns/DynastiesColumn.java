@@ -27,7 +27,7 @@ public class DynastiesColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final DynastyFilter yesDynastyFilter = new DynastyFilter(resultMaker, true);
         matchmaker.addFilter(yesDynastyFilter);
 
@@ -78,7 +78,7 @@ public class DynastiesColumn extends Column {
             }
         });
 
-        return Optional.of(dynastyFilterPanel);
+        return dynastyFilterPanel;
     }
 
 

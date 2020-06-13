@@ -22,7 +22,7 @@ public class KidsColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final KidsFilter minKidsFilter = new KidsFilter(resultMaker, true);
         final KidsFilter maxKidsFilter = new KidsFilter(resultMaker, false);
         matchmaker.addFilter(minKidsFilter);
@@ -50,7 +50,7 @@ public class KidsColumn extends Column {
         UnsettableTextField maxKidsField = new UnsettableTextField(3, maxKidsFilter);
         panel_6.add(maxKidsField);
 
-        return Optional.of(kidsFilterPanel);
+        return kidsFilterPanel;
     }
 
 

@@ -3,6 +3,7 @@
 // for your work that uses this.
 package fam.badger_ken.matchmaker;
 
+import fam.badger_ken.matchmaker.columns.Column;
 import fam.badger_ken.matchmaker.columns.Columns;
 import fam.badger_ken.matchmaker.filter.FiltererFilter;
 

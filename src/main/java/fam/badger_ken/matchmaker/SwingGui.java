@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import fam.badger_ken.matchmaker.columns.*;
-import fam.badger_ken.matchmaker.filter.*;
 import fam.badger_ken.matchmaker.widget.*;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
@@ -390,12 +389,9 @@ public class SwingGui implements ResultMaker {
 
 
         for (Column column : columns) {
-            Optional<Component> tab = column.setupFiltersAndMakeTab(matchmaker, resultMaker);
+            Component tab = column.setupFiltersAndMakeTab(matchmaker, resultMaker);
             addColumnTab(tabbedPane, column.getColumnName(), tab);
         }
-        addTab(tabbedPane, "Attributes", makeAttributesPanel(resultMaker), () -> {
-
-        });
 
         setupAddTabTab(resultMaker, tabbedPane);
         columns.registerChangeListener(() -> setupAddTabTab(resultMaker, tabbedPane));
@@ -488,7 +484,7 @@ public class SwingGui implements ResultMaker {
             Object item = newFilterSelector.getSelectedItem();
             if (item instanceof String) {
                 String title = (String) item;
-                Optional<Component> c = columns.addColumn(title, resultMaker);
+                Component c = columns.addColumn(title, resultMaker);
                 addColumnTab(tabbedPane, title, c);
             }
         });
@@ -496,16 +492,12 @@ public class SwingGui implements ResultMaker {
         return addFilterPanel;
     }
 
-    private void addColumnTab(JTabbedPane tabbedPane, String title, Optional<Component> c) {
-        c.ifPresent(component -> addTab(tabbedPane, title, component, () -> columns.removeColumn(title)));
-    }
-
-    private void addTab(JTabbedPane tabbedPane, String title, Component tabBody, Runnable closeHandler) {
-        if(tabbedPane.getTabCount() > 0 && tabbedPane.getTitleAt(tabbedPane.getTabCount() - 1).equals("+")){
-            tabbedPane.insertTab(title, null, tabBody, null, tabbedPane.getTabCount()-1);
-            tabbedPane.setSelectedIndex(tabbedPane.getTabCount()-1);
+    private void addColumnTab(JTabbedPane tabbedPane, String title, Component c) {
+        if (tabbedPane.getTabCount() > 0 && tabbedPane.getTitleAt(tabbedPane.getTabCount() - 1).equals("+")) {
+            tabbedPane.insertTab(title, null, c, null, tabbedPane.getTabCount() - 1);
+            tabbedPane.setSelectedIndex(tabbedPane.getTabCount() - 1);
         } else {
-            tabbedPane.addTab(title, tabBody);
+            tabbedPane.addTab(title, c);
         }
         int index = tabbedPane.indexOfTab(title);
         JPanel pnlTab = new JPanel(new GridBagLayout());
@@ -531,7 +523,7 @@ public class SwingGui implements ResultMaker {
         btnClose.addActionListener(actionEvent -> {
             removeTabWithTitle(tabbedPane, title);
             btnClose.removeAll();
-            closeHandler.run();
+            columns.removeColumn(title);
         });
     }
 
@@ -543,46 +535,6 @@ public class SwingGui implements ResultMaker {
                 break;
             }
         }
-    }
-
-    private Component makeAttributeSubPanel(AttributeColumn column, ResultMaker resultMaker) {
-        final AttributeFilter minFilter = new AttributeFilter(resultMaker, matchmaker, column.attributeOrd, true);
-        matchmaker.addFilter(minFilter);
-        final AttributeFilter maxFilter = new AttributeFilter(resultMaker, matchmaker, column.attributeOrd, false);
-        matchmaker.addFilter(maxFilter);
-        JPanel attributePanel = new JPanel();
-        FlowLayout flowLayout_4 = (FlowLayout) attributePanel.getLayout();
-        flowLayout_4.setAlignment(FlowLayout.LEFT);
-
-        JLabel attributeLabel = new JLabel(column.attributeName + "...");
-        attributeLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-        attributePanel.add(attributeLabel);
-
-        JLabel label_7 = new JLabel("min: ");
-        attributePanel.add(label_7);
-
-        UnsettableTextField minFilterField = new UnsettableTextField(3, minFilter);
-        attributePanel.add(minFilterField);
-
-        JLabel label_8 = new JLabel(" max: ");
-        attributePanel.add(label_8);
-
-        UnsettableTextField maxFilterField = new UnsettableTextField(3, maxFilter);
-        attributePanel.add(maxFilterField);
-
-        return attributePanel;
-    }
-
-    private Component makeAttributesPanel(ResultMaker resultMaker) {
-        JPanel attrFilterPanel = new JPanel();
-        attrFilterPanel.setLayout(new BoxLayout(attrFilterPanel, BoxLayout.Y_AXIS));
-
-        for (Column column : columns) {
-            if (column instanceof AttributeColumn) {
-                attrFilterPanel.add(makeAttributeSubPanel((AttributeColumn) column, resultMaker));
-            }
-        }
-        return attrFilterPanel;
     }
 
 

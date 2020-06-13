@@ -22,7 +22,7 @@ public class PrestigeColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final PrestigeFilter minPrestigeFilter = new PrestigeFilter(resultMaker, true);
         final PrestigeFilter maxPrestigeFilter = new PrestigeFilter(resultMaker, false);
         matchmaker.addFilter(minPrestigeFilter);
@@ -49,7 +49,7 @@ public class PrestigeColumn extends Column {
         panel_8.add(maxPrestigeField);
 
 
-        return Optional.of(pietyFilterPanel);
+        return pietyFilterPanel;
     }
 
 

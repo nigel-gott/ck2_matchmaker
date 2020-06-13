@@ -1,6 +1,5 @@
 package fam.badger_ken.matchmaker.columns;
 
-import fam.badger_ken.matchmaker.Column;
 import fam.badger_ken.matchmaker.Matchmaker;
 import fam.badger_ken.matchmaker.ResultMaker;
 
@@ -89,15 +88,15 @@ public class Columns implements Iterable<Column> {
         this.listeners.add(onChange);
     }
 
-    public Optional<Component> addColumn(String title, ResultMaker resultMaker) {
+    public Component addColumn(String title, ResultMaker resultMaker) {
         for (Column column : this.columns) {
             if (column.getColumnName().equals(title)) {
-                Optional<Component> tab = column.added(matchmaker, resultMaker);
+                Component tab = column.added(matchmaker, resultMaker);
                 this.notifyColumnListeners();
                 return tab;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     public boolean hasSomeHidden() {

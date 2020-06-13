@@ -22,7 +22,7 @@ public class HealthColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final HealthFilter minHealthFilter = new HealthFilter(resultMaker, true);
         matchmaker.addFilter(minHealthFilter);
         final HealthFilter maxHealthFilter = new HealthFilter(resultMaker, false);
@@ -50,7 +50,7 @@ public class HealthColumn extends Column {
 
         UnsettableTextField maxAgeField = new UnsettableTextField(3, maxHealthFilter);
         maxAgePanel.add(maxAgeField);
-        return Optional.of(ageFilterPanel);
+        return ageFilterPanel;
     }
 
 

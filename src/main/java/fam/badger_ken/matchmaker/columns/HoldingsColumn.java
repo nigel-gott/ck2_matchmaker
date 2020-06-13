@@ -25,7 +25,7 @@ public class HoldingsColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         JPanel rulerFilterPanel = new JPanel();
         rulerFilterPanel.setLayout(new BoxLayout(rulerFilterPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < 2; i++) {
@@ -58,7 +58,7 @@ public class HoldingsColumn extends Column {
             rulerFilterPanel.add(row1Panel);
         }
 
-        return Optional.of(rulerFilterPanel);
+        return rulerFilterPanel;
     }
 
 

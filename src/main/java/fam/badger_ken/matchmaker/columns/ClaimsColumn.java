@@ -22,7 +22,7 @@ public class ClaimsColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final ClaimsFilter minClaimsFilter = new ClaimsFilter(resultMaker, true);
         final ClaimsFilter maxClaimsFilter = new ClaimsFilter(resultMaker, false);
         matchmaker.addFilter(minClaimsFilter);
@@ -52,7 +52,7 @@ public class ClaimsColumn extends Column {
         panel_1.add(maxClaimsField);
 
 
-        return Optional.of(claimsFilterPanel);
+        return claimsFilterPanel;
     }
 
 

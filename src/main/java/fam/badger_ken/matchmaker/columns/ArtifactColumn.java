@@ -22,7 +22,7 @@ public class ArtifactColumn extends Column {
     }
 
     @Override
-    public Optional<Component> setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
+    public Component setupFiltersAndMakeTab(Matchmaker matchmaker, ResultMaker resultMaker) {
         final HasArtifactFilter artifactFilter = new HasArtifactFilter(resultMaker);
         matchmaker.addFilter(artifactFilter);
         JPanel artifactFilterPanel = new JPanel();
@@ -31,7 +31,7 @@ public class ArtifactColumn extends Column {
         artifactFilterPanel.add(artifactComboBox);
 
 
-        return Optional.of(artifactFilterPanel);
+        return artifactFilterPanel;
     }
 
 
