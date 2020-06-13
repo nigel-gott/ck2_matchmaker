@@ -39,6 +39,7 @@ public class SaveState {
     // all holdings, indexed by internal label
     private final Map<String, Holding> holdingsByLabel = new HashMap<>();
     final Map<Integer, Set<Artifact>> artifactsByHolder = new HashMap<>();
+    private Integer playerCharacterKey;
 
     /**
      * load the dynasties rooted at the given node.
@@ -83,7 +84,7 @@ public class SaveState {
     /**
      * load the characters rooted at the given node.
      *
-     * @param characterRoot
+     * @param characterRoot The top level character node as described by https://ck2.paradoxwikis.com/Save-game_editing#Characters
      */
     public void loadCharacters(Node characterRoot) {
 
@@ -111,6 +112,7 @@ public class SaveState {
             person.key = key;
             person.birth_name = characterNode.findAttribute("bn");
             person.raw_birth_date = characterNode.findAttribute("b_d");
+            person.health = characterNode.getDouble("health");
 
             // compute their age, in years.
             if (person.raw_birth_date == null) {
@@ -351,5 +353,9 @@ public class SaveState {
         }
         artifacts.add(artifact);
         artifactsByHolder.put(holder, artifacts);
+    }
+
+    public void setPlayerCharacter(Node player) {
+        this.playerCharacterKey = Util.toInt(player.attributes.get("id"), null);
     }
 }

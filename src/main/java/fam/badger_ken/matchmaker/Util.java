@@ -23,6 +23,21 @@ public class Util {
   }
 
   /**
+   * Convert to double, (default) if null or not integer
+   */
+  public static Double toDouble(String val, Double dflt) {
+    if (val == null) {
+      return dflt;
+    }
+    try {
+      return Double.parseDouble(val);
+    } catch (NumberFormatException e) {
+      return dflt;
+    }
+  }
+
+
+  /**
    * Sort a set of files by name ascending.
    */
   public static List<File> sortFiles(File [] in) {
@@ -48,13 +63,13 @@ public class Util {
   }
 
   /**
-   * Indicates whether two Integers are equal, works if either/both is null
+   * Indicates whether two of a type T are equal, works if either/both is null
    * @param i1 the first
    * @param i2 the second.
-   * @return
+   * @return If i1 equals i2
    */
   @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-  public static boolean guardedEquals(Integer i1, Integer i2) {
+  public static <T> boolean guardedEquals(T i1, T i2) {
     if ((i1 == null) != (i2 == null)) return false;
     if (i1 == null) return true;  // both are null
     // only case left is neither is null.

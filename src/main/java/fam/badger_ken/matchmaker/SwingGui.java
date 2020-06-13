@@ -88,7 +88,8 @@ public class SwingGui implements ResultMaker {
                     new TraitsColumn(matchmaker),
                     new ReligionColumn(matchmaker),
                     new CultureColumn(matchmaker),
-                    new HomeColumn(matchmaker)
+                    new HomeColumn(matchmaker),
+                    new HealthColumn()
             ));
 
     private void repopulateColumns() {

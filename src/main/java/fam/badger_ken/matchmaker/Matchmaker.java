@@ -106,6 +106,7 @@ public class Matchmaker implements ParserPruner {
         saveState.loadHeldPlaces(root.findDescendant("title"));
         Node characters = root.findDescendant("character");
         saveState.loadCharacters(characters);
+        saveState.setPlayerCharacter(root.findDescendant("player"));
         // do AFTER finding characters
         // load the dynasties from the save-game file:
         Node dynasties = root.findDescendant("dynasties");
